@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
   Appbar,
   Button,
@@ -25,51 +25,33 @@ export default function Login() {
         </Appbar.Header>
 
         <SafeAreaView style={styles.container}>
-          <ScrollView>
-            <View style={[styles.container, styles.containerScroll]}>
-              <Text variant='headlineSmall' style={{ textAlign: 'center' }}>
-                Datos de la empresa
-              </Text>
+          <Text variant='headlineSmall' style={{ textAlign: 'center' }}>
+            Iniciar Sesión
+          </Text>
 
-              <TextInput
-                label='Nombre de la empresa'
-                value={companyName}
-                mode='outlined'
-                onChangeText={setCompanyName}
-              />
+          <TextInput
+            label='correo'
+            value={companyName}
+            mode='outlined'
+            onChangeText={setCompanyName}
+          />
 
-              <TextInput
-                label='CRF'
-                value={'cafe'}
-                mode='outlined'
-                onChangeText={(text) => console.log(text)}
-              />
+          <TextInput
+            label='correo'
+            value={'cafe'}
+            mode='outlined'
+            onChangeText={(text) => console.log(text)}
+          />
 
-              <TextInput
-                label='???'
-                value={'cafe'}
-                mode='outlined'
-                onChangeText={(text) => console.log(text)}
-              />
-
-              <TextInput
-                label='???'
-                value={'cafe'}
-                mode='outlined'
-                onChangeText={(text) => console.log(text)}
-              />
-
-              <Button
-                style={styles.buttonSend}
-                mode='contained'
-                onPress={() => router.navigate('/screens/login')}
-                icon={'arrow-right'}
-                contentStyle={{ flexDirection: 'row-reverse' }}
-              >
-                Continuar
-              </Button>
-            </View>
-          </ScrollView>
+          <Button
+            style={styles.buttonSend}
+            mode='contained'
+            onPress={() => router.navigate('/screens/login')}
+            icon={'arrow-right'}
+            contentStyle={{ flexDirection: 'row-reverse' }}
+          >
+            Continuar
+          </Button>
         </SafeAreaView>
       </SafeAreaProvider>
     </PaperProvider>
@@ -81,9 +63,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     gap: 20,
-  },
-  containerScroll: {
-    marginHorizontal: 16,
+    marginHorizontal: 20,
   },
   containerLogo: {
     alignItems: 'center',

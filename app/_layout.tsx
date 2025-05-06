@@ -45,7 +45,13 @@ export default function RootLayout() {
           }}
         />
 
-        <Stack.Screen name='register' />
+        <Stack.Screen
+          name='screens/login'
+          options={{
+            headerShown: false,
+            animation: 'fade',
+          }}
+        />
       </Stack>
 
       <StatusBar style='auto' />

@@ -33,7 +33,6 @@ export default function Index() {
           onPress={() => router.navigate('/screens/login')}
           icon={'key-variant'}
           contentStyle={{ flexDirection: 'row-reverse' }}
-          disabled
         >
           Iniciar sesión
         </Button>
