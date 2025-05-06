@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   buttonSend: {
-    marginTop: 30,
+    marginTop: 20,
     marginHorizontal: 20,
   },
 });
