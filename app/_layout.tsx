@@ -26,13 +26,21 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen
           name="index"
-          options={{ headerShown: false }}
-        ></Stack.Screen>
+          options={{ headerShown: false, animation: "fade" }}
+        />
+
+        <Stack.Screen
+          name="screens/login"
+          options={{
+            headerShown: false,
+            animation: "fade",
+            headerTitle: "Iniciar sesion",
+          }}
+        />
+
+        <Stack.Screen name="register" />
       </Stack>
-      {/* <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack> */}
+
       <StatusBar style="auto" />
     </ThemeProvider>
   );

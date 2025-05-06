@@ -1,11 +1,13 @@
+import { useRouter } from "expo-router";
 import { Image, StyleSheet, View } from "react-native";
 import { Button, PaperProvider, Text } from "react-native-paper";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
+  const router = useRouter();
+
   return (
     <PaperProvider>
-      <SafeAreaProvider>
         <SafeAreaView style={styles.container}>
           <View style={styles.containerLogo}>
             <Image
@@ -18,10 +20,19 @@ export default function Index() {
             Factura App
           </Text>
 
-          <Button mode="contained">Registrarse</Button>
-          <Button mode="contained">Iniciar sesión</Button>
+          <Button
+            mode="contained"
+            onPress={() => router.navigate("/screens/register")}
+          >
+            Registrarse
+          </Button>
+          <Button
+            mode="contained"
+            onPress={() => router.navigate("/screens/login")}
+          >
+            Iniciar sesión
+          </Button>
         </SafeAreaView>
-      </SafeAreaProvider>
     </PaperProvider>
   );
 }
@@ -31,7 +42,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     gap: 16,
-    marginHorizontal: 20,
+    marginHorizontal: 25,
   },
   containerLogo: {
     alignItems: "center",
