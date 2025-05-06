@@ -1,8 +1,14 @@
 // import { useRouter } from "expo-router";
-import { useRouter } from "expo-router";
-import { StyleSheet } from "react-native";
-import { Appbar, PaperProvider, TextInput } from "react-native-paper";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { useRouter } from 'expo-router';
+import { StyleSheet } from 'react-native';
+import {
+  Appbar,
+  Button,
+  PaperProvider,
+  Text,
+  TextInput,
+} from 'react-native-paper';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Login() {
   const router = useRouter();
@@ -12,41 +18,39 @@ export default function Login() {
       <SafeAreaProvider>
         <Appbar.Header>
           <Appbar.BackAction onPress={() => router.back()} />
-          <Appbar.Content title="Iniciar Sesión" />
+          <Appbar.Content title='Iniciar Sesión' />
         </Appbar.Header>
 
         <SafeAreaView style={styles.container}>
+          <Text variant='headlineSmall' style={{ textAlign: 'center' }}>
+            Datos de la empresa
+          </Text>
+
           <TextInput
-            label="Email"
-            value={"cafe"}
-            mode="outlined"
+            label='Nombre de la empresa'
+            value={'Chocolates explosivos C.A'}
+            mode='outlined'
             onChangeText={(text) => console.log(text)}
           />
 
           <TextInput
-            label="Email"
-            value={"cafe"}
-            mode="outlined"
+            label='CRF'
+            value={'cafe'}
+            mode='outlined'
             onChangeText={(text) => console.log(text)}
           />
 
           <TextInput
-            label="Email"
-            value={"cafe"}
-            mode="outlined"
+            label='???'
+            value={'cafe'}
+            mode='outlined'
             onChangeText={(text) => console.log(text)}
           />
 
           <TextInput
-            label="Email"
-            value={"cafe"}
-            mode="outlined"
-            onChangeText={(text) => console.log(text)}
-          />
-          <TextInput
-            label="Email"
-            value={"cafe"}
-            mode="outlined"
+            label='???'
+            value={'cafe'}
+            mode='outlined'
             onChangeText={(text) => console.log(text)}
           />
           {/* <View style={styles.containerLogo}>
@@ -56,22 +60,14 @@ export default function Login() {
             />
           </View> */}
 
-          {/* <Text variant="headlineSmall" style={{ textAlign: "center" }}>
-            LOGIN
-          </Text>
-
           <Button
-            mode="contained"
-            onPress={() => router.navigate("/screens/register")}
+            mode='contained'
+            onPress={() => router.navigate('/screens/login')}
+            icon={'arrow-right'}
+            contentStyle={{ flexDirection: 'row-reverse' }}
           >
-            Registrarse
-          </Button> */}
-          {/* <Button
-            mode="contained"
-            onPress={() => router.navigate("/screens/login")}
-          >
-            Iniciar sesión
-          </Button> */}
+            Continuar
+          </Button>
         </SafeAreaView>
       </SafeAreaProvider>
     </PaperProvider>
@@ -81,12 +77,12 @@ export default function Login() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     gap: 16,
     marginHorizontal: 25,
   },
   containerLogo: {
-    alignItems: "center",
+    alignItems: 'center',
     marginBottom: 40,
   },
   logo: {
