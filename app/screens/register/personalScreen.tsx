@@ -1,4 +1,3 @@
-// import { useRouter } from "expo-router";
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
@@ -22,7 +21,7 @@ export default function PersonalScreen() {
       <SafeAreaProvider>
         <Appbar.Header>
           <Appbar.BackAction onPress={() => router.back()} />
-          <Appbar.Content title='Iniciar Sesión' />
+          <Appbar.Content title='Registro' />
         </Appbar.Header>
 
         <SafeAreaView style={styles.container}>
@@ -33,21 +32,21 @@ export default function PersonalScreen() {
               </Text>
 
               <TextInput
-                label='Nombre de la empresa'
+                label='Nombres'
                 value={companyName}
                 mode='outlined'
                 onChangeText={setCompanyName}
               />
 
               <TextInput
-                label='CRF'
+                label='Apellidos'
                 value={'cafe'}
                 mode='outlined'
                 onChangeText={(text) => console.log(text)}
               />
 
               <TextInput
-                label='???'
+                label='DNI'
                 value={'cafe'}
                 mode='outlined'
                 onChangeText={(text) => console.log(text)}

@@ -63,7 +63,9 @@ export default function CompanyScreen() {
               <Button
                 style={styles.buttonSend}
                 mode='contained'
-                onPress={() => router.navigate('/screens/login')}
+                onPress={() =>
+                  router.navigate('/screens/register/personalScreen')
+                }
                 icon={'arrow-right'}
                 contentStyle={{ flexDirection: 'row-reverse' }}
               >

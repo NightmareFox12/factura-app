@@ -1,4 +1,3 @@
-// import { useRouter } from "expo-router";
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
