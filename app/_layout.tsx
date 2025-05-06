@@ -2,18 +2,18 @@ import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
-} from "@react-navigation/native";
-import { useFonts } from "expo-font";
-import { StatusBar } from "expo-status-bar";
-import "react-native-reanimated";
+} from '@react-navigation/native';
+import { useFonts } from 'expo-font';
+import { StatusBar } from 'expo-status-bar';
+import 'react-native-reanimated';
 
-import { useColorScheme } from "@/hooks/useColorScheme";
-import { Stack } from "expo-router";
+import { useColorScheme } from '@/hooks/useColorScheme';
+import { Stack } from 'expo-router';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
 
   if (!loaded) {
@@ -22,26 +22,33 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen
-          name="index"
-          options={{ headerShown: false, animation: "fade" }}
+          name='index'
+          options={{ headerShown: false, animation: 'fade' }}
         />
 
         <Stack.Screen
-          name="screens/login"
+          name='screens/register/companyScreen'
           options={{
             headerShown: false,
-            animation: "fade",
-            headerTitle: "Iniciar sesion",
+            animation: 'fade',
           }}
         />
 
-        <Stack.Screen name="register" />
+        <Stack.Screen
+          name='screens/register/personalScreen'
+          options={{
+            headerShown: false,
+            animation: 'fade',
+          }}
+        />
+
+        <Stack.Screen name='register' />
       </Stack>
 
-      <StatusBar style="auto" />
+      <StatusBar style='auto' />
     </ThemeProvider>
   );
 }

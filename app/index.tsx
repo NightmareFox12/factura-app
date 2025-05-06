@@ -1,38 +1,43 @@
-import { useRouter } from "expo-router";
-import { Image, StyleSheet, View } from "react-native";
-import { Button, PaperProvider, Text } from "react-native-paper";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useRouter } from 'expo-router';
+import { Image, StyleSheet, View } from 'react-native';
+import { Button, PaperProvider, Text } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Index() {
   const router = useRouter();
 
   return (
     <PaperProvider>
-        <SafeAreaView style={styles.container}>
-          <View style={styles.containerLogo}>
-            <Image
-              style={styles.logo}
-              source={{ uri: "https://picsum.photos/700" }}
-            />
-          </View>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.containerLogo}>
+          <Image
+            style={styles.logo}
+            source={{ uri: 'https://picsum.photos/700' }}
+          />
+        </View>
 
-          <Text variant="headlineSmall" style={{ textAlign: "center" }}>
-            Factura App
-          </Text>
+        <Text variant='headlineSmall' style={{ textAlign: 'center' }}>
+          Factura App
+        </Text>
 
-          <Button
-            mode="contained"
-            onPress={() => router.navigate("/screens/register")}
-          >
-            Registrarse
-          </Button>
-          <Button
-            mode="contained"
-            onPress={() => router.navigate("/screens/login")}
-          >
-            Iniciar sesión
-          </Button>
-        </SafeAreaView>
+        <Button
+          mode='contained'
+          onPress={() => router.navigate('/screens/register/companyScreen')}
+          icon={'account-plus'}
+          contentStyle={{ flexDirection: 'row-reverse' }}
+        >
+          Registrarse
+        </Button>
+        <Button
+          mode='contained'
+          onPress={() => router.navigate('/screens/login')}
+          icon={'key-variant'}
+          contentStyle={{ flexDirection: 'row-reverse' }}
+          disabled
+        >
+          Iniciar sesión
+        </Button>
+      </SafeAreaView>
     </PaperProvider>
   );
 }
@@ -40,12 +45,12 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     gap: 16,
     marginHorizontal: 25,
   },
   containerLogo: {
-    alignItems: "center",
+    alignItems: 'center',
     marginBottom: 40,
   },
   logo: {
