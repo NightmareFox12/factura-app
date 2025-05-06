@@ -14,7 +14,8 @@ export default function Login() {
   const router = useRouter();
 
   //states
-  const [companyName, setCompanyName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
   return (
     <PaperProvider>
@@ -30,27 +31,25 @@ export default function Login() {
           </Text>
 
           <TextInput
-            label='correo'
-            value={companyName}
+            label='Correo Electrónico'
+            value={email}
             mode='outlined'
-            onChangeText={setCompanyName}
+            onChangeText={setEmail}
           />
 
           <TextInput
-            label='correo'
-            value={'cafe'}
+            label='Contraseña'
+            value={password}
             mode='outlined'
-            onChangeText={(text) => console.log(text)}
+            onChangeText={setPassword}
           />
 
           <Button
             style={styles.buttonSend}
             mode='contained'
             onPress={() => router.navigate('/screens/login')}
-            icon={'arrow-right'}
-            contentStyle={{ flexDirection: 'row-reverse' }}
           >
-            Continuar
+            Iniciar Sesión
           </Button>
         </SafeAreaView>
       </SafeAreaProvider>
@@ -62,7 +61,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    gap: 20,
+    gap: 22,
     marginHorizontal: 20,
   },
   containerLogo: {
