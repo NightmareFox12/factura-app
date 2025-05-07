@@ -47,7 +47,7 @@ export default function Login() {
           <Button
             style={styles.buttonSend}
             mode='contained'
-            onPress={() => router.navigate('/screens/home/index')}
+            onPress={() => router.navigate('/screens/home')}
           >
             Iniciar Sesión
           </Button>
