@@ -1,19 +1,20 @@
-import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
-import { DataTable, TextInput, FAB } from "react-native-paper";
+import React, { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { DataTable, TextInput, FAB } from 'react-native-paper';
 
 const clientsData = [
-  { id: 1, name: "Juan Pérez", phone: "0412-1234567" },
-  { id: 2, name: "María González", phone: "0414-7654321" },
-  { id: 3, name: "Carlos Rodríguez", phone: "0426-2345678" },
-  { id: 4, name: "Ana Martínez", phone: "0416-8765432" },
+  { id: 1, name: 'Juan Pérez', phone: '0412-1234567' },
+  { id: 2, name: 'María González', phone: '0414-7654321' },
+  { id: 3, name: 'Carlos Rodríguez', phone: '0426-2345678' },
+  { id: 4, name: 'Ana Martínez', phone: '0416-8765432' },
 ];
 
 export default function Clients() {
-  const [searchQuery, setSearchQuery] = useState("");
+  //states
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const [clients, setClients] = useState(clientsData);
 
-  const handleSearch = (query) => {
+  const handleSearch = (query: string) => {
     setSearchQuery(query);
     if (query) {
       setClients(
@@ -21,18 +22,16 @@ export default function Clients() {
           c.name.toLowerCase().includes(query.toLowerCase())
         )
       );
-    } else {
-      setClients(clientsData);
-    }
+    } else setClients(clientsData);
   };
 
   return (
     <View style={styles.container}>
       <TextInput
-        label="Buscar cliente"
+        label='Buscar cliente'
         value={searchQuery}
         onChangeText={handleSearch}
-        mode="outlined"
+        mode='outlined'
         style={styles.input}
       />
 
@@ -51,10 +50,10 @@ export default function Clients() {
       </DataTable>
 
       <FAB
-        icon="plus"
-        label="Añadir cliente"
+        icon='plus'
+        label='Añadir cliente'
         style={styles.fab}
-        onPress={() => console.log("Agregar nuevo cliente")}
+        onPress={() => console.log('Agregar nuevo cliente')}
       />
     </View>
   );
@@ -64,13 +63,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
   },
   input: {
     marginBottom: 16,
   },
   fab: {
-    position: "absolute",
+    position: 'absolute',
     right: 16,
     bottom: 16,
   },
