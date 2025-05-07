@@ -1,27 +1,37 @@
-import { StyleSheet } from 'react-native';
-import { Button, Drawer, Text } from 'react-native-paper';
+import { useRouter } from 'expo-router';
+import { useEffect } from 'react';
+import { BackHandler, StyleSheet } from 'react-native';
+import { Button, Text } from 'react-native-paper';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Home() {
+  //functions
+
+  //effects
+  useEffect(() => {
+    const backAction = () => {
+      BackHandler.exitApp();
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        {/* <Drawer.Section showDivider={false} style={{ width: 200 }}>
-          <Drawer.Item label='cafe sin lechuga' active={true} />
-          <Drawer.Item label='cafe sin lechuga' active={true} />
-          <Drawer.Item label='cafe sin lechuga' active={true} />
-          <Drawer.Item label='cafe sin lechuga' active={true} />
-          <Drawer.Item label='cafe sin lechuga' active={true} />
-          <Drawer.Item label='cafe sin lechuga' active={true} />
-          <Drawer.Item label='cafe sin lechuga' active={true} />
-          <Drawer.Item label='cafe sin lechuga' active={true} />
-          <Drawer.Item label='cafe sin lechuga' active={true} />
-          <Drawer.Item label='cafe sin lechuga' active={true} />
-          <Drawer.Item label='cafe sin lechuga' active={true} />
-        </Drawer.Section> */}
-
-        <Text>afhfahfjafhfjah</Text>
-        <Button mode='contained-tonal'>Hola</Button>
+        <Text
+          variant='labelSmall'
+          style={{ color: 'white', textAlign: 'center' }}
+        >
+          afhjjjjjjjjjjjjfahfjafhfjah
+        </Text>
+        {/* <Button mode='contained-tonal'>Hola</Button> */}
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -29,5 +39,4 @@ export default function Home() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  
 });

@@ -1,6 +1,7 @@
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Drawer } from 'expo-router/drawer';
 
+import { Icon } from 'react-native-paper';
 export default function HomeLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -10,7 +11,9 @@ export default function HomeLayout() {
           options={{
             drawerLabel: 'Inicio',
             title: 'Inicio',
-            headerShown: false,
+            drawerIcon: (props) => (
+              <Icon source={'home'} size={props.size} color={props.color} />
+            ),
           }}
         />
         <Drawer.Screen
@@ -18,6 +21,13 @@ export default function HomeLayout() {
           options={{
             drawerLabel: 'Productos',
             title: 'Productos',
+            drawerIcon: (props) => (
+              <Icon
+                source={'package-variant'}
+                size={props.size}
+                color={props.color}
+              />
+            ),
           }}
         />
       </Drawer>
