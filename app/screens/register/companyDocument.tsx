@@ -91,26 +91,10 @@ export default function CompanyDocumentScreen() {
             <View style={styles.scrollContainer}>
               {/* Company Logo  */}
               <View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    marginHorizontal: 'auto',
-                    gap: 5,
-                  }}
-                >
-                  <Text variant='titleMedium'>
-                    {companyLogo === null ? 'Cargar' : 'Cambiar'} Logo de la
-                    empresa
-                  </Text>
-                  <Text
-                    variant='titleMedium'
-                    style={{
-                      color: TailwindPallete.red500,
-                    }}
-                  >
-                    *
-                  </Text>
-                </View>
+                <Text variant='titleMedium' style={{ textAlign: 'center' }}>
+                  {companyLogo === null ? 'Cargar' : 'Cambiar'} Logo de la
+                  empresa
+                </Text>
 
                 {companyLogo === null ? (
                   <IconButton
@@ -133,10 +117,19 @@ export default function CompanyDocumentScreen() {
 
               {/* RFC */}
               <View>
-                <Text variant='titleMedium' style={{ textAlign: 'center' }}>
-                  {companyLogo === null ? 'Cargar' : 'Cambiar'} RFC
-                </Text>
-
+                <View style={styles.containerTitle}>
+                  <Text variant='titleMedium'>
+                    {companyLogo === null ? 'Cargar' : 'Cambiar'} RFC
+                  </Text>
+                  <Text
+                    variant='titleMedium'
+                    style={{
+                      color: TailwindPallete.red500,
+                    }}
+                  >
+                    *
+                  </Text>
+                </View>
                 {rfc === null ? (
                   <IconButton
                     icon={'image'}
@@ -158,10 +151,19 @@ export default function CompanyDocumentScreen() {
 
               {/* .KEY */}
               <View>
-                <Text variant='titleMedium' style={{ textAlign: 'center' }}>
-                  {companyLogo === null ? 'Cargar' : 'Cambiar'} documento .KEY
-                </Text>
-
+                <View style={styles.containerTitle}>
+                  <Text variant='titleMedium' style={{ textAlign: 'center' }}>
+                    {companyLogo === null ? 'Cargar' : 'Cambiar'} documento .KEY
+                  </Text>
+                  <Text
+                    variant='titleMedium'
+                    style={{
+                      color: TailwindPallete.red500,
+                    }}
+                  >
+                    *
+                  </Text>
+                </View>
                 {key === null ? (
                   <IconButton
                     icon={'folder'}
@@ -182,10 +184,19 @@ export default function CompanyDocumentScreen() {
 
               {/* .CER */}
               <View>
-                <Text variant='titleMedium' style={{ textAlign: 'center' }}>
-                  {companyLogo === null ? 'Cargar' : 'Cambiar'} documento .CER
-                </Text>
-
+                <View style={styles.containerTitle}>
+                  <Text variant='titleMedium' style={{ textAlign: 'center' }}>
+                    {companyLogo === null ? 'Cargar' : 'Cambiar'} documento .CER
+                  </Text>
+                  <Text
+                    variant='titleMedium'
+                    style={{
+                      color: TailwindPallete.red500,
+                    }}
+                  >
+                    *
+                  </Text>
+                </View>
                 {cer === null ? (
                   <IconButton
                     icon={'folder'}
@@ -214,6 +225,9 @@ export default function CompanyDocumentScreen() {
               >
                 Continuar
               </Button>
+              <Text variant='bodySmall' style={{ textAlign: 'center' }}>
+                Los campos marcados con * son obligatorios
+              </Text>
             </View>
           </ScrollView>
         </SafeAreaView>
@@ -230,6 +244,11 @@ const styles = StyleSheet.create({
   scrollContainer: {
     gap: 20,
     marginBottom: 20,
+  },
+  containerTitle: {
+    flexDirection: 'row',
+    marginHorizontal: 'auto',
+    gap: 5,
   },
   iconButton: {
     marginHorizontal: 'auto',
