@@ -24,7 +24,7 @@ export default function Main() {
         <Button
           mode='contained'
           onPress={() =>
-            router.navigate('/screens/register/companyDocumentScreen')
+            router.navigate('/screens/register/companyDocument')
           }
           icon={'domain'}
           contentStyle={{ flexDirection: 'row-reverse' }}

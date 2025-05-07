@@ -190,9 +190,7 @@ export default function CompanyDocumentScreen() {
               <Button
                 style={styles.buttonSend}
                 mode='contained'
-                onPress={() =>
-                  router.navigate('/screens/register/personalScreen')
-                }
+                onPress={() => router.navigate('/screens/register/companyInfo')}
                 icon={'arrow-right'}
                 contentStyle={{ flexDirection: 'row-reverse' }}
               >

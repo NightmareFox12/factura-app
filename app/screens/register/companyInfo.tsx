@@ -15,6 +15,7 @@ export default function CompanyInfoScreen() {
 
   //states
   const [companyName, setCompanyName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
 
   return (
     <PaperProvider>
@@ -32,31 +33,17 @@ export default function CompanyInfoScreen() {
               </Text>
 
               <TextInput
-                label='Nombres'
+                label='Nombre de la Empresa'
                 value={companyName}
                 mode='outlined'
                 onChangeText={setCompanyName}
               />
 
               <TextInput
-                label='Apellidos'
-                value={'cafe'}
+                label='Correo Electrónico'
+                value={email}
                 mode='outlined'
-                onChangeText={(text) => console.log(text)}
-              />
-
-              <TextInput
-                label='DNI'
-                value={'cafe'}
-                mode='outlined'
-                onChangeText={(text) => console.log(text)}
-              />
-
-              <TextInput
-                label='???'
-                value={'cafe'}
-                mode='outlined'
-                onChangeText={(text) => console.log(text)}
+                onChangeText={setEmail}
               />
 
               <Button
