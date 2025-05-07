@@ -55,6 +55,12 @@
         {
           "iCloudContainerEnvironment": "Production"
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The application accesses your photos to enable uploading of necessary documents and files."
+        }
       ]
     ],
     "experiments": {

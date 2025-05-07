@@ -1,8 +1,9 @@
-// import { useRouter } from "expo-router";
+import * as DocumentPicker from 'expo-document-picker';
+import * as ImagePicker from 'expo-image-picker';
+
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import {
   Appbar,
@@ -15,13 +16,36 @@ import {
   IconButton,
   useTheme,
 } from 'react-native-paper';
+import { Image } from 'expo-image';
 export default function CompanyScreen() {
   const router = useRouter();
   const theme = useTheme();
 
   //states
+  const [companyLogo, setCompanyLogo] = useState<string | null>(null);
+
   const [companyName, setCompanyName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
+
+  // const handleUploadLogo = async () => {
+  //   DocumentPicker.getDocumentAsync({
+  //     type: 'image/*',
+  //     multiple: false
+  //   })
+  // }
+
+  const handleUploadLogo = async () => {
+    let res: ImagePicker.ImagePickerResult =
+      await ImagePicker.launchImageLibraryAsync({
+        allowsEditing: true,
+        aspect: [3, 3],
+        quality: 1,
+        allowsMultipleSelection: false,
+      });
+
+    console.log(res);
+    res.assets !== null && setCompanyLogo(res.assets[0].uri);
+  };
 
   return (
     <PaperProvider>
@@ -35,16 +59,32 @@ export default function CompanyScreen() {
           <ScrollView>
             <View style={styles.containerScroll}>
               <Text variant='titleMedium' style={{ textAlign: 'center' }}>
-                Cargar Logo
+                {companyLogo === null
+                  ? 'Cargar Logo de la empresa'
+                  : 'Cambiar Logo de la empresa'}
               </Text>
 
-              <IconButton
-                icon={'folder'}
-                onPress={() => console.log('fisr')}
-                containerColor={theme.colors.primary}
-                size={30}
-                style={styles.iconButton}
-              />
+              {companyLogo === null ? (
+                <IconButton
+                  icon={'folder'}
+                  onPress={handleUploadLogo}
+                  containerColor={theme.colors.primary}
+                  size={30}
+                  style={styles.iconButton}
+                />
+              ) : (
+                <Button
+                  mode='outlined'
+                  onPress={handleUploadLogo}
+                  style={styles.buttonLogo}
+                >
+                  <Image
+                    source={{ uri: companyLogo }}
+                    contentFit='cover'
+                    style={styles.logo}
+                  />
+                </Button>
+              )}
 
               <View style={[styles.container, styles.containerScroll]}>
                 <TextInput
@@ -118,6 +158,16 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 200,
+  },
+  buttonLogo: {
+    // borderWidth: 0,
+  },
+  logo: {
+    width: 150,
+    height: 150,
+    borderRadius: 10,
+    padding: 0,
+    margin: 0,
   },
   buttonSend: {
     marginTop: 30,
