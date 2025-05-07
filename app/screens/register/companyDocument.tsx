@@ -92,14 +92,18 @@ export default function CompanyDocumentScreen() {
               {/* Company Logo  */}
               <View>
                 <View
-                  style={{ flexDirection: 'row', marginHorizontal: 'auto',gap: 5 }}
+                  style={{
+                    flexDirection: 'row',
+                    marginHorizontal: 'auto',
+                    gap: 5,
+                  }}
                 >
                   <Text variant='titleMedium'>
                     {companyLogo === null ? 'Cargar' : 'Cambiar'} Logo de la
                     empresa
                   </Text>
                   <Text
-                  variant='labelMedium'
+                    variant='titleMedium'
                     style={{
                       color: TailwindPallete.red500,
                     }}
