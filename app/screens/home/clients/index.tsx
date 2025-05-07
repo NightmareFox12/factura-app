@@ -2,34 +2,34 @@ import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { DataTable, TextInput, FAB } from "react-native-paper";
 
-const productsData = [
-  { id: 1, name: "PC", price: "$120", stock: 25 },
-  { id: 2, name: "Teléfono", price: "$150", stock: 18 },
-  { id: 3, name: "Laptop", price: "$600", stock: 30 },
-  { id: 4, name: "PlayStation 5", price: "$450", stock: 12 },
+const clientsData = [
+  { id: 1, name: "Juan Pérez", phone: "0412-1234567" },
+  { id: 2, name: "María González", phone: "0414-7654321" },
+  { id: 3, name: "Carlos Rodríguez", phone: "0426-2345678" },
+  { id: 4, name: "Ana Martínez", phone: "0416-8765432" },
 ];
 
-export default function Products() {
+export default function Clients() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [products, setProducts] = useState(productsData);
+  const [clients, setClients] = useState(clientsData);
 
   const handleSearch = (query) => {
     setSearchQuery(query);
     if (query) {
-      setProducts(
-        productsData.filter((p) =>
-          p.name.toLowerCase().includes(query.toLowerCase())
+      setClients(
+        clientsData.filter((c) =>
+          c.name.toLowerCase().includes(query.toLowerCase())
         )
       );
     } else {
-      setProducts(productsData);
+      setClients(clientsData);
     }
   };
 
   return (
     <View style={styles.container}>
       <TextInput
-        label="Buscar producto"
+        label="Buscar cliente"
         value={searchQuery}
         onChangeText={handleSearch}
         mode="outlined"
@@ -39,24 +39,22 @@ export default function Products() {
       <DataTable>
         <DataTable.Header>
           <DataTable.Title>Nombre</DataTable.Title>
-          <DataTable.Title numeric>Precio</DataTable.Title>
-          <DataTable.Title numeric>Stock</DataTable.Title>
+          <DataTable.Title>Teléfono</DataTable.Title>
         </DataTable.Header>
 
-        {products.map((product) => (
-          <DataTable.Row key={product.id}>
-            <DataTable.Cell>{product.name}</DataTable.Cell>
-            <DataTable.Cell numeric>{product.price}</DataTable.Cell>
-            <DataTable.Cell numeric>{product.stock}</DataTable.Cell>
+        {clients.map((client) => (
+          <DataTable.Row key={client.id}>
+            <DataTable.Cell>{client.name}</DataTable.Cell>
+            <DataTable.Cell>{client.phone}</DataTable.Cell>
           </DataTable.Row>
         ))}
       </DataTable>
 
       <FAB
         icon="plus"
-        label="Añadir producto"
+        label="Añadir cliente"
         style={styles.fab}
-        onPress={() => console.log("Agregar nuevo producto")}
+        onPress={() => console.log("Agregar nuevo cliente")}
       />
     </View>
   );
