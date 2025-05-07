@@ -1,26 +1,28 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Appbar, Button, Text, TextInput } from 'react-native-paper';
+import { Button, Text, TextInput } from 'react-native-paper';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export default function ClientForm() {
   const router = useRouter();
 
-  // Estados para los datos del cliente
-  const [dni, setDni] = useState('');
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [address, setAddress] = useState('');
+  // states
+  const [dni, setDni] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [phone, setPhone] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [address, setAddress] = useState<string>('');
 
   return (
     <SafeAreaProvider>
-
       <SafeAreaView style={styles.container}>
         <ScrollView>
           <View style={[styles.container, styles.containerScroll]}>
-            <Text variant='headlineSmall' style={{ textAlign: 'center', marginTop: 50 }}>
+            <Text
+              variant='headlineSmall'
+              style={{ textAlign: 'center', marginTop: 50 }}
+            >
               Datos del Cliente
             </Text>
 

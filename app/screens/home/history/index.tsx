@@ -4,18 +4,17 @@ import { View, StyleSheet } from 'react-native';
 import { DataTable, TextInput, FAB } from 'react-native-paper';
 
 export default function Invoices() {
+  //states
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [invoices, setInvoices] = useState(invoicesData);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    if (query) {
-      setInvoices(
-        invoicesData.filter((i) =>
-          i.client.toLowerCase().includes(query.toLowerCase())
-        )
-      );
-    } else setInvoices(invoicesData);
+    setInvoices(
+      invoicesData.filter((i) =>
+        i.client.toLowerCase().includes(query.toLowerCase())
+      )
+    );
   };
 
   return (
