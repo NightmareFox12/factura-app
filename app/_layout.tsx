@@ -30,7 +30,7 @@ export default function RootLayout() {
         />
 
         <Stack.Screen
-          name='screens/register/companyScreen'
+          name='screens/register/companyDocumentScreen'
           options={{
             headerShown: false,
             animation: 'fade',
@@ -38,7 +38,7 @@ export default function RootLayout() {
         />
 
         <Stack.Screen
-          name='screens/register/personalScreen'
+          name='screens/register/companyInfoScreen'
           options={{
             headerShown: false,
             animation: 'fade',

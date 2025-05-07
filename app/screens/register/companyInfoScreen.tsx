@@ -10,7 +10,7 @@ import {
 } from 'react-native-paper';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
-export default function PersonalScreen() {
+export default function CompanyInfoScreen() {
   const router = useRouter();
 
   //states
