@@ -1,38 +1,35 @@
-import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
-import { DataTable, TextInput, FAB } from "react-native-paper";
-
-const productsData = [
-  { id: 1, name: "PC", price: "$120", stock: 25 },
-  { id: 2, name: "Teléfono", price: "$150", stock: 18 },
-  { id: 3, name: "Laptop", price: "$600", stock: 30 },
-  { id: 4, name: "PlayStation 5", price: "$450", stock: 12 },
-];
+import React, { useState } from 'react';
+import { productsData } from '@/test/productsData';
+import { useRouter } from 'expo-router';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { DataTable, TextInput, FAB } from 'react-native-paper';
 
 export default function Products() {
-  const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
+  const insets = useSafeAreaInsets();
+
+  //states
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const [products, setProducts] = useState(productsData);
 
-  const handleSearch = (query) => {
+  //functions
+  const handleSearch = (query: string) => {
     setSearchQuery(query);
-    if (query) {
-      setProducts(
-        productsData.filter((p) =>
-          p.name.toLowerCase().includes(query.toLowerCase())
-        )
-      );
-    } else {
-      setProducts(productsData);
-    }
+    setProducts(
+      productsData.filter((x) =>
+        x.name.toLowerCase().includes(query.toLowerCase())
+      )
+    );
   };
 
   return (
     <View style={styles.container}>
       <TextInput
-        label="Buscar producto"
+        label='Buscar producto'
         value={searchQuery}
         onChangeText={handleSearch}
-        mode="outlined"
+        mode='outlined'
         style={styles.input}
       />
 
@@ -43,20 +40,22 @@ export default function Products() {
           <DataTable.Title numeric>Stock</DataTable.Title>
         </DataTable.Header>
 
-        {products.map((product) => (
-          <DataTable.Row key={product.id}>
-            <DataTable.Cell>{product.name}</DataTable.Cell>
-            <DataTable.Cell numeric>{product.price}</DataTable.Cell>
-            <DataTable.Cell numeric>{product.stock}</DataTable.Cell>
-          </DataTable.Row>
-        ))}
+        <ScrollView>
+          {products.map((product) => (
+            <DataTable.Row key={product.id}>
+              <DataTable.Cell>{product.name}</DataTable.Cell>
+              <DataTable.Cell numeric>{product.price}</DataTable.Cell>
+              <DataTable.Cell numeric>{product.stock}</DataTable.Cell>
+            </DataTable.Row>
+          ))}
+        </ScrollView>
       </DataTable>
 
       <FAB
-        icon="plus"
-        label="Añadir producto"
-        style={styles.fab}
-        onPress={() => console.log("Agregar nuevo producto")}
+        icon='plus'
+        label='Añadir producto'
+        style={[styles.fab, { bottom: insets.bottom + 10 }]}
+        onPress={() => router.navigate('/screens/home/products/form')}
       />
     </View>
   );
@@ -66,14 +65,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
   },
   input: {
     marginBottom: 16,
   },
   fab: {
-    position: "absolute",
-    right: 16,
-    bottom: 16,
+    position: 'absolute',
+    right: 10,
   },
 });

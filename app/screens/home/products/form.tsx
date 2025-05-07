@@ -1,25 +1,26 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Appbar, Button, Text, TextInput } from 'react-native-paper';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { Button, Text, TextInput } from 'react-native-paper';
 
 export default function ProductForm() {
   const router = useRouter();
 
-  // Estados
-  const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
-  const [stock, setStock] = useState('');
+  // states
+  const [name, setName] = useState<string>('');
+  const [price, setPrice] = useState<string>('');
+  const [stock, setStock] = useState<string>('');
 
   return (
     <SafeAreaProvider>
-
-
       <SafeAreaView style={styles.container}>
         <ScrollView>
           <View style={[styles.container, styles.containerScroll]}>
-            <Text variant='headlineSmall' style={{ textAlign: 'center', marginTop: 40 }}>
+            <Text
+              variant='headlineSmall'
+              style={{ textAlign: 'center', marginTop: 40 }}
+            >
               Datos del Producto
             </Text>
 

@@ -35,4 +35,11 @@ export const invoicesData: InvoicesData[] = [
     amount: '$450',
     status: 'Cancelado',
   },
+  {
+    id: 5,
+    number: 'F005',
+    client: 'Gabriel Montana',
+    amount: '$250',
+    status: 'Cancelado',
+  },
 ];

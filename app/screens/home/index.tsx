@@ -32,7 +32,7 @@ export default function Home() {
         <FAB
           icon='plus'
           label='Nueva Factura'
-          style={[styles.fab, { bottom: insets.bottom + 5 }]}
+          style={[styles.fab, { bottom: insets.bottom + 10 }]}
           onPress={() => console.log('Crear nueva factura')}
         />
       </SafeAreaView>
@@ -44,5 +44,5 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f8f9fa' },
   content: { flex: 1, padding: 20 },
   card: { marginBottom: 15, padding: 0 },
-  fab: { position: 'absolute', right: 5 },
+  fab: { position: 'absolute', right: 10 },
 });
