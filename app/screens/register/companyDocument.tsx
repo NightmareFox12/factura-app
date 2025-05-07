@@ -3,7 +3,13 @@ import * as DocumentPicker from 'expo-document-picker';
 
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { ScrollView, StyleSheet, TouchableHighlight, View } from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  TouchableHighlight,
+  useColorScheme,
+  View,
+} from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import {
   Appbar,
@@ -250,7 +256,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 'auto',
     width: 55,
     height: 55,
-    borderRadius: 200,
   },
   logo: {
     width: 150,
