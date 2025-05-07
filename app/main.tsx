@@ -3,7 +3,7 @@ import { Image, StyleSheet, View } from 'react-native';
 import { Button, PaperProvider, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function Index() {
+export default function Main() {
   const router = useRouter();
 
   return (

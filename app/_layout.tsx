@@ -23,9 +23,9 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
+      <Stack initialRouteName='main'>
         <Stack.Screen
-          name='index'
+          name='main'
           options={{ headerShown: false, animation: 'fade' }}
         />
 
@@ -52,8 +52,9 @@ export default function RootLayout() {
             animation: 'fade',
           }}
         />
-      </Stack>
 
+        <Stack.Screen name='+not-found' />
+      </Stack>
       <StatusBar style='auto' />
     </ThemeProvider>
   );
