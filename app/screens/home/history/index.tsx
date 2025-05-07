@@ -2,8 +2,11 @@ import { invoicesData } from '@/test/invoiceData';
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { DataTable, TextInput, FAB } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function Invoices() {
+  const insets = useSafeAreaInsets();
+
   //states
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [invoices, setInvoices] = useState(invoicesData);
@@ -53,7 +56,7 @@ export default function Invoices() {
       <FAB
         icon='plus'
         label='Nueva factura'
-        style={styles.fab}
+        style={[styles.fab, { bottom: insets.bottom + 10 }]}
         onPress={() => console.log('Agregar nueva factura')}
       />
     </View>

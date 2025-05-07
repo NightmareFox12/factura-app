@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { productsData } from '@/test/productsData';
-import { useRouter } from 'expo-router';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { DataTable, TextInput, FAB } from 'react-native-paper';
+import { router } from 'expo-router';
 
 export default function Products() {
-  const router = useRouter();
   const insets = useSafeAreaInsets();
 
   //states

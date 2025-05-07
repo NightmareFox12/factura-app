@@ -1,8 +1,8 @@
 import { useRouter } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
-import { Button, PaperProvider, Text } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image } from 'expo-image';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Button, PaperProvider, Text } from 'react-native-paper';
 
 export default function Main() {
   const router = useRouter();

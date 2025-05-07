@@ -1,12 +1,9 @@
-import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export default function ClientForm() {
-  const router = useRouter();
-
   // states
   const [dni, setDni] = useState<string>('');
   const [name, setName] = useState<string>('');

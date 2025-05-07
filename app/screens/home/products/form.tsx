@@ -1,12 +1,9 @@
-import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Text, TextInput } from 'react-native-paper';
 
 export default function ProductForm() {
-  const router = useRouter();
-
   // states
   const [name, setName] = useState<string>('');
   const [price, setPrice] = useState<string>('');

@@ -1,13 +1,9 @@
+import { clientsData } from '@/test/clientsData';
+import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { DataTable, TextInput, FAB } from 'react-native-paper';
-
-const clientsData = [
-  { id: 1, name: 'Juan Pérez', phone: '0412-1234567' },
-  { id: 2, name: 'María González', phone: '0414-7654321' },
-  { id: 3, name: 'Carlos Rodríguez', phone: '0426-2345678' },
-  { id: 4, name: 'Ana Martínez', phone: '0416-8765432' },
-];
 
 export default function Clients() {
   //states
@@ -41,19 +37,21 @@ export default function Clients() {
           <DataTable.Title>Teléfono</DataTable.Title>
         </DataTable.Header>
 
-        {clients.map((client) => (
-          <DataTable.Row key={client.id}>
-            <DataTable.Cell>{client.name}</DataTable.Cell>
-            <DataTable.Cell>{client.phone}</DataTable.Cell>
-          </DataTable.Row>
-        ))}
+        <ScrollView>
+          {clients.map((x) => (
+            <DataTable.Row key={x.id}>
+              <DataTable.Cell>{x.name}</DataTable.Cell>
+              <DataTable.Cell>{x.phone}</DataTable.Cell>
+            </DataTable.Row>
+          ))}
+        </ScrollView>
       </DataTable>
 
       <FAB
         icon='plus'
         label='Añadir cliente'
         style={styles.fab}
-        onPress={() => console.log('Agregar nuevo cliente')}
+        onPress={() => router.navigate('/screens/home/clients/form')}
       />
     </View>
   );
