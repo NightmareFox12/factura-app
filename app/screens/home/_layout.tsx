@@ -12,7 +12,9 @@ export default function HomeLayout() {
             drawerLabel: 'Inicio',
             title: 'Inicio',
             drawerIcon: (props) => (
-              <Icon source={'home'} size={props.size} color={props.color} />
+              <Icon source={'home'} 
+              size={props.size} 
+              color={props.color} />
             ),
           }}
         />
@@ -28,6 +30,48 @@ export default function HomeLayout() {
                 size={props.size}
                 color={props.color}
               />
+            ),
+          }}
+        />
+
+        <Drawer.Screen
+          name='clients/index'
+          options={{
+            drawerLabel: 'Clientes',
+            title: 'Clientes',
+            drawerIcon: (props) => (
+              <Icon 
+              source={'account-group'} 
+              size={props.size} 
+              color={props.color} />
+            ),
+          }}
+        />
+
+        <Drawer.Screen
+          name='history/index'
+          options={{
+            drawerLabel: 'Historial',
+            title: 'Historial',
+            drawerIcon: (props) => (
+              <Icon 
+              source={'history'} 
+              size={props.size} 
+              color={props.color} />
+            ),
+          }}
+        />
+
+        <Drawer.Screen
+          name='settings/index'
+          options={{
+            drawerLabel: 'Configuración',
+            title: 'Configuración',
+            drawerIcon: (props) => (
+              <Icon 
+              source={'cog'} 
+              size={props.size} 
+              color={props.color} />
             ),
           }}
         />
