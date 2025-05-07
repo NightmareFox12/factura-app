@@ -5,7 +5,8 @@ export default function Home() {
   return (
     <SafeAreaProvider>
       <SafeAreaView>
-        <Drawer.Section showDivider={false} style={{ width: 200 }}>
+        
+      {/* <Drawer.Section showDivider={false} style={{ width: 200 }}>
           <Drawer.Item label='cafe sin lechuga' active={true} />
           <Drawer.Item label='cafe sin lechuga' active={true} />
           <Drawer.Item label='cafe sin lechuga' active={true} />
@@ -17,7 +18,8 @@ export default function Home() {
           <Drawer.Item label='cafe sin lechuga' active={true} />
           <Drawer.Item label='cafe sin lechuga' active={true} />
           <Drawer.Item label='cafe sin lechuga' active={true} />
-        </Drawer.Section>
+        </Drawer.Section> */}
+    
 
         <Text>afhfahfjafhfjah</Text>
         <Button mode='contained-tonal'>Hola</Button>
