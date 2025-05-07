@@ -1,7 +1,6 @@
-import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { BackHandler, StyleSheet } from 'react-native';
-import { Button, Text } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Home() {
