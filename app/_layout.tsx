@@ -10,7 +10,7 @@ import 'react-native-reanimated';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Stack } from 'expo-router';
 import { PaperProvider } from 'react-native-paper';
-import { Mytheme } from '@/constants/Theme';
+import { MyLightTheme, MyDarkTheme } from '@/constants/MyTheme';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -26,7 +26,9 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <PaperProvider theme={Mytheme}>
+      <PaperProvider
+        theme={colorScheme === 'dark' ? MyDarkTheme : MyLightTheme}
+      >
         <Stack initialRouteName='main'>
           <Stack.Screen
             name='main'

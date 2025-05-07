@@ -8,7 +8,6 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import {
   Appbar,
   Button,
-  PaperProvider,
   Text,
   IconButton,
   useTheme,
@@ -79,160 +78,157 @@ export default function CompanyDocumentScreen() {
   };
 
   return (
-    <PaperProvider>
-      <SafeAreaProvider>
-        <Appbar.Header>
-          <Appbar.BackAction onPress={() => router.back()} />
-          <Appbar.Content title='Registro de Empresa' />
-        </Appbar.Header>
+    <SafeAreaProvider>
+      <Appbar.Header>
+        <Appbar.BackAction onPress={() => router.back()} />
+        <Appbar.Content title='Registro de Empresa' />
+      </Appbar.Header>
 
-        <SafeAreaView style={styles.container}>
-          <ScrollView>
-            <View style={styles.scrollContainer}>
-              {/* Company Logo  */}
-              <View>
-                <Text variant='titleMedium' style={{ textAlign: 'center' }}>
-                  {companyLogo === null ? 'Cargar' : 'Cambiar'} Logo de la
-                  empresa
-                </Text>
-
-                {companyLogo === null ? (
-                  <IconButton
-                    icon={'image'}
-                    onPress={handleUploadLogo}
-                    containerColor={theme.colors.primary}
-                    size={30}
-                    style={styles.iconButton}
-                  />
-                ) : (
-                  <TouchableHighlight onPress={handleUploadLogo}>
-                    <Image
-                      source={{ uri: companyLogo }}
-                      contentFit='cover'
-                      style={styles.logo}
-                    />
-                  </TouchableHighlight>
-                )}
-              </View>
-
-              {/* RFC */}
-              <View>
-                <View style={styles.containerTitle}>
-                  <Text variant='titleMedium'>
-                    {companyLogo === null ? 'Cargar' : 'Cambiar'} RFC
-                  </Text>
-                  <Text
-                    variant='titleMedium'
-                    style={{
-                      color: TailwindPallete.red500,
-                    }}
-                  >
-                    *
-                  </Text>
-                </View>
-                {rfc === null ? (
-                  <IconButton
-                    icon={'image'}
-                    onPress={handleUploadRfc}
-                    containerColor={theme.colors.primary}
-                    size={30}
-                    style={styles.iconButton}
-                  />
-                ) : (
-                  <TouchableHighlight onPress={handleUploadRfc}>
-                    <Image
-                      source={{ uri: rfc }}
-                      contentFit='cover'
-                      style={styles.rfcImage}
-                    />
-                  </TouchableHighlight>
-                )}
-              </View>
-
-              {/* .KEY */}
-              <View>
-                <View style={styles.containerTitle}>
-                  <Text variant='titleMedium' style={{ textAlign: 'center' }}>
-                    {companyLogo === null ? 'Cargar' : 'Cambiar'} documento .KEY
-                  </Text>
-                  <Text
-                    variant='titleMedium'
-                    style={{
-                      color: TailwindPallete.red500,
-                    }}
-                  >
-                    *
-                  </Text>
-                </View>
-                {key === null ? (
-                  <IconButton
-                    icon={'folder'}
-                    onPress={handleUploadKey}
-                    containerColor={theme.colors.primary}
-                    size={30}
-                    style={styles.iconButton}
-                  />
-                ) : (
-                  <List.Item
-                    title={key.name}
-                    style={{ marginHorizontal: 50 }}
-                    left={(props) => <List.Icon {...props} icon='key' />}
-                    onPress={handleUploadKey}
-                  />
-                )}
-              </View>
-
-              {/* .CER */}
-              <View>
-                <View style={styles.containerTitle}>
-                  <Text variant='titleMedium' style={{ textAlign: 'center' }}>
-                    {companyLogo === null ? 'Cargar' : 'Cambiar'} documento .CER
-                  </Text>
-                  <Text
-                    variant='titleMedium'
-                    style={{
-                      color: TailwindPallete.red500,
-                    }}
-                  >
-                    *
-                  </Text>
-                </View>
-                {cer === null ? (
-                  <IconButton
-                    icon={'folder'}
-                    onPress={handleUploadCer}
-                    containerColor={theme.colors.primary}
-                    size={30}
-                    style={styles.iconButton}
-                  />
-                ) : (
-                  <List.Item
-                    title={cer.name}
-                    style={{ marginHorizontal: 50 }}
-                    left={(props) => <List.Icon {...props} icon='key' />}
-                    onPress={handleUploadCer}
-                  />
-                )}
-              </View>
-
-              <Button
-                style={styles.buttonSend}
-                mode='contained'
-                onPress={() => router.navigate('/screens/register/companyInfo')}
-                icon={'arrow-right'}
-                contentStyle={{ flexDirection: 'row-reverse' }}
-                disabled={rfc === null || key === null || cer === null}
-              >
-                Continuar
-              </Button>
-              <Text variant='bodySmall' style={{ textAlign: 'center' }}>
-                Los campos marcados con * son obligatorios
+      <SafeAreaView style={styles.container}>
+        <ScrollView>
+          <View style={styles.scrollContainer}>
+            {/* Company Logo  */}
+            <View>
+              <Text variant='titleMedium' style={{ textAlign: 'center' }}>
+                {companyLogo === null ? 'Cargar' : 'Cambiar'} Logo de la empresa
               </Text>
+
+              {companyLogo === null ? (
+                <IconButton
+                  icon={'image'}
+                  onPress={handleUploadLogo}
+                  containerColor={theme.colors.primary}
+                  size={30}
+                  style={styles.iconButton}
+                />
+              ) : (
+                <TouchableHighlight onPress={handleUploadLogo}>
+                  <Image
+                    source={{ uri: companyLogo }}
+                    contentFit='cover'
+                    style={styles.logo}
+                  />
+                </TouchableHighlight>
+              )}
             </View>
-          </ScrollView>
-        </SafeAreaView>
-      </SafeAreaProvider>
-    </PaperProvider>
+
+            {/* RFC */}
+            <View>
+              <View style={styles.containerTitle}>
+                <Text variant='titleMedium'>
+                  {companyLogo === null ? 'Cargar' : 'Cambiar'} RFC
+                </Text>
+                <Text
+                  variant='titleMedium'
+                  style={{
+                    color: TailwindPallete.red500,
+                  }}
+                >
+                  *
+                </Text>
+              </View>
+              {rfc === null ? (
+                <IconButton
+                  icon={'image'}
+                  onPress={handleUploadRfc}
+                  containerColor={theme.colors.primary}
+                  size={30}
+                  style={styles.iconButton}
+                />
+              ) : (
+                <TouchableHighlight onPress={handleUploadRfc}>
+                  <Image
+                    source={{ uri: rfc }}
+                    contentFit='cover'
+                    style={styles.rfcImage}
+                  />
+                </TouchableHighlight>
+              )}
+            </View>
+
+            {/* .KEY */}
+            <View>
+              <View style={styles.containerTitle}>
+                <Text variant='titleMedium' style={{ textAlign: 'center' }}>
+                  {companyLogo === null ? 'Cargar' : 'Cambiar'} documento .KEY
+                </Text>
+                <Text
+                  variant='titleMedium'
+                  style={{
+                    color: TailwindPallete.red500,
+                  }}
+                >
+                  *
+                </Text>
+              </View>
+              {key === null ? (
+                <IconButton
+                  icon={'folder'}
+                  onPress={handleUploadKey}
+                  containerColor={theme.colors.primary}
+                  size={30}
+                  style={styles.iconButton}
+                />
+              ) : (
+                <List.Item
+                  title={key.name}
+                  style={{ marginHorizontal: 50 }}
+                  left={(props) => <List.Icon {...props} icon='key' />}
+                  onPress={handleUploadKey}
+                />
+              )}
+            </View>
+
+            {/* .CER */}
+            <View>
+              <View style={styles.containerTitle}>
+                <Text variant='titleMedium' style={{ textAlign: 'center' }}>
+                  {companyLogo === null ? 'Cargar' : 'Cambiar'} documento .CER
+                </Text>
+                <Text
+                  variant='titleMedium'
+                  style={{
+                    color: TailwindPallete.red500,
+                  }}
+                >
+                  *
+                </Text>
+              </View>
+              {cer === null ? (
+                <IconButton
+                  icon={'folder'}
+                  onPress={handleUploadCer}
+                  containerColor={theme.colors.primary}
+                  size={30}
+                  style={styles.iconButton}
+                />
+              ) : (
+                <List.Item
+                  title={cer.name}
+                  style={{ marginHorizontal: 50 }}
+                  left={(props) => <List.Icon {...props} icon='key' />}
+                  onPress={handleUploadCer}
+                />
+              )}
+            </View>
+
+            <Button
+              style={styles.buttonSend}
+              mode='contained'
+              onPress={() => router.navigate('/screens/register/companyInfo')}
+              icon={'arrow-right'}
+              contentStyle={{ flexDirection: 'row-reverse' }}
+              disabled={rfc === null || key === null || cer === null}
+            >
+              Continuar
+            </Button>
+            <Text variant='bodySmall' style={{ textAlign: 'center' }}>
+              Los campos marcados con * son obligatorios
+            </Text>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 

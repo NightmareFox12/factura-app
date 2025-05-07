@@ -1,13 +1,7 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import {
-  Appbar,
-  Button,
-  PaperProvider,
-  Text,
-  TextInput,
-} from 'react-native-paper';
+import { Appbar, Button, Text, TextInput } from 'react-native-paper';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export default function CompanyInfoScreen() {
@@ -19,55 +13,53 @@ export default function CompanyInfoScreen() {
   const [web, setWeb] = useState<string>('');
 
   return (
-    <PaperProvider>
-      <SafeAreaProvider>
-        <Appbar.Header>
-          <Appbar.BackAction onPress={() => router.back()} />
-          <Appbar.Content title='Registro' />
-        </Appbar.Header>
+    <SafeAreaProvider>
+      <Appbar.Header>
+        <Appbar.BackAction onPress={() => router.back()} />
+        <Appbar.Content title='Registro' />
+      </Appbar.Header>
 
-        <SafeAreaView style={styles.container}>
-          <ScrollView>
-            <View style={[styles.container, styles.containerScroll]}>
-              <Text variant='headlineSmall' style={{ textAlign: 'center' }}>
-                Datos de la empresa
-              </Text>
+      <SafeAreaView style={styles.container}>
+        <ScrollView>
+          <View style={[styles.container, styles.containerScroll]}>
+            <Text variant='headlineSmall' style={{ textAlign: 'center' }}>
+              Datos de la empresa
+            </Text>
 
-              <TextInput
-                label='Nombre de la Empresa'
-                value={companyName}
-                mode='outlined'
-                onChangeText={setCompanyName}
-              />
+            <TextInput
+              label='Nombre de la Empresa'
+              value={companyName}
+              mode='outlined'
+              onChangeText={setCompanyName}
+            />
 
-              <TextInput
-                label='Correo Electrónico'
-                value={email}
-                mode='outlined'
-                onChangeText={setEmail}
-              />
+            <TextInput
+              label='Correo Electrónico'
+              value={email}
+              mode='outlined'
+              onChangeText={setEmail}
+            />
 
-              <TextInput
-                label='Sitio Web'
-                value={web}
-                mode='outlined'
-                onChangeText={setWeb}
-              />
+            <TextInput
+              label='Sitio Web'
+              value={web}
+              mode='outlined'
+              onChangeText={setWeb}
+            />
 
-              <Button
-                style={styles.buttonSend}
-                mode='contained'
-                onPress={() => router.navigate('/screens/login')}
-                icon={'arrow-right'}
-                contentStyle={{ flexDirection: 'row-reverse' }}
-              >
-                Continuar
-              </Button>
-            </View>
-          </ScrollView>
-        </SafeAreaView>
-      </SafeAreaProvider>
-    </PaperProvider>
+            <Button
+              style={styles.buttonSend}
+              mode='contained'
+              onPress={() => router.navigate('/screens/login')}
+              icon={'arrow-right'}
+              contentStyle={{ flexDirection: 'row-reverse' }}
+            >
+              Continuar
+            </Button>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
