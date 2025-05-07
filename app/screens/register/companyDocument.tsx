@@ -15,6 +15,7 @@ import {
   List,
 } from 'react-native-paper';
 import { Image } from 'expo-image';
+import { TailwindPallete } from '@/constants/TailwindColors';
 
 export default function CompanyDocumentScreen() {
   const router = useRouter();
@@ -90,10 +91,22 @@ export default function CompanyDocumentScreen() {
             <View style={styles.scrollContainer}>
               {/* Company Logo  */}
               <View>
-                <Text variant='titleMedium' style={{ textAlign: 'center' }}>
-                  {companyLogo === null ? 'Cargar' : 'Cambiar'} Logo de la
-                  empresa
-                </Text>
+                <View
+                  style={{ flexDirection: 'row', marginHorizontal: 'auto',gap: 5 }}
+                >
+                  <Text variant='titleMedium'>
+                    {companyLogo === null ? 'Cargar' : 'Cambiar'} Logo de la
+                    empresa
+                  </Text>
+                  <Text
+                  variant='labelMedium'
+                    style={{
+                      color: TailwindPallete.red500,
+                    }}
+                  >
+                    *
+                  </Text>
+                </View>
 
                 {companyLogo === null ? (
                   <IconButton
@@ -193,6 +206,7 @@ export default function CompanyDocumentScreen() {
                 onPress={() => router.navigate('/screens/register/companyInfo')}
                 icon={'arrow-right'}
                 contentStyle={{ flexDirection: 'row-reverse' }}
+                disabled={rfc === null || key === null || cer === null}
               >
                 Continuar
               </Button>

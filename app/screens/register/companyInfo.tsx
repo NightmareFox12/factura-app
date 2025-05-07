@@ -16,6 +16,7 @@ export default function CompanyInfoScreen() {
   //states
   const [companyName, setCompanyName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
+  const [web, setWeb] = useState<string>('');
 
   return (
     <PaperProvider>
@@ -44,6 +45,13 @@ export default function CompanyInfoScreen() {
                 value={email}
                 mode='outlined'
                 onChangeText={setEmail}
+              />
+
+              <TextInput
+                label='Sitio Web'
+                value={web}
+                mode='outlined'
+                onChangeText={setWeb}
               />
 
               <Button

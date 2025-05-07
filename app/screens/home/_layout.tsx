@@ -1,7 +1,6 @@
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Drawer } from 'expo-router/drawer';
 import { Icon } from 'react-native-paper';
-import { TailwindPallete } from '@/constants/TailwindColors';
 
 export default function HomeLayout() {
   return (
@@ -28,22 +27,6 @@ export default function HomeLayout() {
                 source={'package-variant'}
                 size={props.size}
                 color={props.color}
-              />
-            ),
-          }}
-        />
-
-        <Drawer.Screen
-          name='session/index'
-          options={{
-            drawerLabel: 'Cerrar Sesión',
-            headerShown: false,
-            title: 'Cerrar Sesión',
-            drawerIcon: (props) => (
-              <Icon
-                source={'door-open'}
-                size={props.size}
-                color={TailwindPallete.red500}
               />
             ),
           }}
