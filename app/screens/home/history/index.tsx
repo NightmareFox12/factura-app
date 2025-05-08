@@ -1,7 +1,7 @@
 import { invoicesData } from '@/test/invoiceData';
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { DataTable, TextInput, FAB } from 'react-native-paper';
+import { DataTable, FAB, Searchbar } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function Invoices() {
@@ -22,12 +22,10 @@ export default function Invoices() {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        label='Buscar factura'
+      <Searchbar
+        placeholder='Buscar Factura'
         value={searchQuery}
         onChangeText={handleSearch}
-        mode='outlined'
-        style={styles.input}
       />
 
       <DataTable>

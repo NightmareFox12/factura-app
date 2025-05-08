@@ -3,7 +3,7 @@ import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { DataTable, TextInput, FAB } from 'react-native-paper';
+import { DataTable, FAB, Searchbar } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function Clients() {
@@ -13,25 +13,22 @@ export default function Clients() {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [clients, setClients] = useState(clientsData);
 
+  //functions
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    if (query) {
-      setClients(
-        clientsData.filter((c) =>
-          c.name.toLowerCase().includes(query.toLowerCase())
-        )
-      );
-    } else setClients(clientsData);
+    setClients(
+      clientsData.filter((c) =>
+        c.name.toLowerCase().includes(query.toLowerCase())
+      )
+    );
   };
 
   return (
     <View style={styles.container}>
-      <TextInput
-        label='Buscar cliente'
+      <Searchbar
         value={searchQuery}
         onChangeText={handleSearch}
-        mode='outlined'
-        style={styles.input}
+        placeholder='Buscar Cliente'
       />
 
       <DataTable>

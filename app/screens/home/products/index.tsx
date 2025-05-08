@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { productsData } from '@/test/productsData';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { DataTable, TextInput, FAB, Searchbar } from 'react-native-paper';
+import { DataTable, FAB, Searchbar } from 'react-native-paper';
 import { router } from 'expo-router';
 
 export default function Products() {
