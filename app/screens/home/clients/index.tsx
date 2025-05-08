@@ -4,8 +4,11 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { DataTable, TextInput, FAB } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function Clients() {
+  const insets = useSafeAreaInsets();
+
   //states
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [clients, setClients] = useState(clientsData);
@@ -50,7 +53,7 @@ export default function Clients() {
       <FAB
         icon='plus'
         label='Añadir cliente'
-        style={styles.fab}
+        style={[styles.fab, { bottom: insets.bottom + 10 }]}
         onPress={() => router.navigate('/screens/home/clients/form')}
       />
     </View>
@@ -68,7 +71,6 @@ const styles = StyleSheet.create({
   },
   fab: {
     position: 'absolute',
-    right: 16,
-    bottom: 16,
+    right: 10,
   },
 });

@@ -1,3 +1,4 @@
+import { clientsData } from '@/test/clientsData';
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
@@ -10,6 +11,15 @@ export default function ClientForm() {
   const [phone, setPhone] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [address, setAddress] = useState<string>('');
+
+  //functions
+  const handleCreateClient = () => {
+    clientsData.push({
+      id: clientsData.length + 1,
+      name,
+      phone,
+    });
+  };
 
   return (
     <SafeAreaProvider>
@@ -65,7 +75,7 @@ export default function ClientForm() {
             <Button
               style={styles.buttonSend}
               mode='contained'
-              onPress={() => console.log('Cliente guardado')}
+              onPress={handleCreateClient}
               icon={'arrow-right'}
               contentStyle={{ flexDirection: 'row-reverse' }}
             >
