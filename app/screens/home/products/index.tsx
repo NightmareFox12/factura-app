@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { productsData } from '@/test/productsData';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { DataTable, TextInput, FAB } from 'react-native-paper';
+import { DataTable, TextInput, FAB, Searchbar } from 'react-native-paper';
 import { router } from 'expo-router';
 
 export default function Products() {
@@ -24,12 +24,10 @@ export default function Products() {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        label='Buscar producto'
+      <Searchbar
         value={searchQuery}
         onChangeText={handleSearch}
-        mode='outlined'
-        style={styles.input}
+        placeholder='Buscar producto'
       />
 
       <DataTable>

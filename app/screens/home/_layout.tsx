@@ -79,11 +79,18 @@ export default function HomeLayout() {
             drawerLabel: 'Crear Producto',
             title: 'Crear Producto',
             drawerIcon: (props) => (
-              <Icon
-                source={'plus-box'}
-                size={props.size}
-                color={props.color}
-              />
+              <Icon source={'plus-box'} size={props.size} color={props.color} />
+            ),
+          }}
+        />
+
+        <Drawer.Screen
+          name='testing/index'
+          options={{
+            drawerLabel: 'PDF para miguel (eliminar)',
+            title:'PDF para miguel (eliminar)',
+            drawerIcon: (props) => (
+              <Icon source={'file-pdf-box'} size={props.size} color={props.color} />
             ),
           }}
         />

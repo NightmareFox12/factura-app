@@ -2,7 +2,7 @@ import { View, StyleSheet } from 'react-native';
 import * as Print from 'expo-print';
 import { shareAsync } from 'expo-sharing';
 import { invoiceTemplate } from '@/templates/invoiceTemplate';
-import { Button } from 'react-native-paper';
+import { Button, Text } from 'react-native-paper';
 
 export default function App() {
   // const [selectedPrinter, setSelectedPrinter] = useState();
@@ -26,6 +26,10 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <Text variant='bodyLarge' style={{ textAlign: 'center' }}>
+        El PDF lo renderizas en HTML, el cual se encuentra en:
+        templates/invoiceTemplate.ts
+      </Text>
       <Button mode='contained' style={styles.button} onPress={print}>
         Descargar PDF
       </Button>
