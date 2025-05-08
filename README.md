@@ -1,4 +1,5 @@
 ![image](https://github.com/user-attachments/assets/6423a413-a236-49fe-b320-6a8e9994f835)
+![image](https://github.com/user-attachments/assets/f94e07f2-2fd5-4a0f-a530-0efafe514ddd)
 
 <!-- # Welcome to your Expo app 👋
 
