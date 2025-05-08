@@ -26,10 +26,6 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text variant='bodyLarge' style={{ textAlign: 'center' }}>
-        El PDF lo renderizas en HTML, el cual se encuentra en:
-        templates/invoiceTemplate.ts
-      </Text>
       <Button mode='contained' style={styles.button} onPress={print}>
         Descargar PDF
       </Button>
