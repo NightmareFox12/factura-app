@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { clientsData } from '@/test/clientsData';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { DataTable, FAB, Searchbar, Text } from 'react-native-paper';
 import { router } from 'expo-router';
+import { DataTable, FAB, Searchbar, Text } from 'react-native-paper';
 
 export default function Clients() {
   const insets = useSafeAreaInsets();
