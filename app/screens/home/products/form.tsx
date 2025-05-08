@@ -1,13 +1,40 @@
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { Button, Text, TextInput } from 'react-native-paper';
+import { Button, Snackbar, Text, TextInput } from 'react-native-paper';
+import { productsData } from '@/test/productsData';
+
 
 export default function ProductForm() {
   // states
   const [name, setName] = useState<string>('');
   const [price, setPrice] = useState<string>('');
   const [stock, setStock] = useState<string>('');
+
+  const [loadingCreation, setLoadingCreation] = useState<boolean>(false);
+  const [showSnack, setShowSnack] = useState<boolean>(false);
+
+  //functions
+  const handleCreateProduct = async () => {
+    try {
+      setLoadingCreation(true);
+      productsData.push({
+        id: productsData.length + 1,
+        name,
+        price,
+        stock: parseInt(stock),
+      });
+
+      setName('');
+      setPrice('');
+      setStock('');
+      setShowSnack(true);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoadingCreation(false);
+    }
+  };
 
   return (
     <SafeAreaProvider>
@@ -33,7 +60,12 @@ export default function ProductForm() {
               value={price}
               mode='outlined'
               keyboardType='numeric'
-              onChangeText={setPrice}
+              onChangeText={(x) => {
+                (/^\d+$/.test(x) || x === '') && setPrice(x);
+              }}
+              right={
+                <TextInput.Affix text='$' textStyle={{ fontWeight: 'bold' }} />
+              }
             />
 
             <TextInput
@@ -41,20 +73,41 @@ export default function ProductForm() {
               value={stock}
               mode='outlined'
               keyboardType='numeric'
-              onChangeText={setStock}
+              onChangeText={(x) => {
+                (/^\d+$/.test(x) || x === '') && setStock(x);
+              }}
             />
 
             <Button
               style={styles.buttonSend}
               mode='contained'
-              onPress={() => console.log('Producto guardado')}
+              onPress={handleCreateProduct}
               icon={'arrow-right'}
+              loading={loadingCreation}
               contentStyle={{ flexDirection: 'row-reverse' }}
+              disabled={
+                name.length < 2 ||
+                price === '' ||
+                stock === '' ||
+                loadingCreation
+              }
             >
-              Guardar Producto
+              {loadingCreation ? 'Guardando...' : 'Guardar Producto'}
             </Button>
           </View>
         </ScrollView>
+        <Snackbar
+          visible={showSnack}
+          onDismiss={() => setShowSnack(false)}
+          duration={1500}
+          action={{
+            label: '',
+            icon: 'close',
+            onPress: () => setShowSnack(false),
+          }}
+        >
+          ¡Producto guardado exitosamente!
+        </Snackbar>
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -63,7 +116,6 @@ export default function ProductForm() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     gap: 20,
   },
   containerScroll: {
