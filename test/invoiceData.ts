@@ -3,6 +3,7 @@ type InvoicesData = {
   number: string;
   client: string;
   amount: string;
+  amountWithIVA: string;
   status: string;
 };
 
@@ -12,6 +13,7 @@ export const invoicesData: InvoicesData[] = [
     number: 'F001',
     client: 'Juan Pérez',
     amount: '$120',
+    amountWithIVA: '$139.20',
     status: 'Pagado',
   },
   {
@@ -19,6 +21,7 @@ export const invoicesData: InvoicesData[] = [
     number: 'F002',
     client: 'María González',
     amount: '$150',
+    amountWithIVA: '$174.00',
     status: 'Pagado',
   },
   {
@@ -26,6 +29,7 @@ export const invoicesData: InvoicesData[] = [
     number: 'F003',
     client: 'Carlos Rodríguez',
     amount: '$600',
+    amountWithIVA: '$696.00',
     status: 'Pagado',
   },
   {
@@ -33,6 +37,7 @@ export const invoicesData: InvoicesData[] = [
     number: 'F004',
     client: 'Ana Martínez',
     amount: '$450',
+    amountWithIVA: '$522.00',
     status: 'Cancelado',
   },
   {
@@ -40,6 +45,7 @@ export const invoicesData: InvoicesData[] = [
     number: 'F005',
     client: 'Gabriel Montana',
     amount: '$250',
+    amountWithIVA: '$290.00',
     status: 'Cancelado',
   },
 ];

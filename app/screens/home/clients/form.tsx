@@ -1,104 +1,134 @@
-import { clientsData } from '@/test/clientsData';
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Button, Text, TextInput } from 'react-native-paper';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { Button, Snackbar, Text, TextInput } from 'react-native-paper';
+import { clientsData } from '@/test/clientsData';
 
 export default function ClientForm() {
-  // states
-  const [dni, setDni] = useState<string>('');
-  const [name, setName] = useState<string>('');
-  const [phone, setPhone] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [address, setAddress] = useState<string>('');
+  const [form, setForm] = useState({
+    dni: '',
+    name: '',
+    phone: '',
+    email: '',
+    address: '',
+  });
 
-  //functions
-  const handleCreateClient = () => {
-    clientsData.push({
-      id: clientsData.length + 1,
-      name,
-      phone,
-    });
+  const [loadingCreation, setLoadingCreation] = useState<boolean>(false);
+  const [showSnack, setShowSnack] = useState<boolean>(false);
+
+  // Función para guardar el cliente
+  const handleCreateClient = async () => {
+    try {
+      setLoadingCreation(true);
+      clientsData.push({
+        id: clientsData.length + 1,
+        ...form,
+      });
+
+      setForm({
+        dni: '',
+        name: '',
+        phone: '',
+        email: '',
+        address: '',
+      });
+      setShowSnack(true);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoadingCreation(false);
+    }
   };
 
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <ScrollView>
-          <View style={[styles.container, styles.containerScroll]}>
-            <Text
-              variant='headlineSmall'
-              style={{ textAlign: 'center', marginTop: 50 }}
-            >
-              Datos del Cliente
+          <View style={styles.containerScroll}>
+            <Text variant="headlineSmall" style={styles.header}>
+              🏷️ Datos del Cliente
             </Text>
 
+            <Text style={styles.label}>📌 DNI:</Text>
             <TextInput
-              label='DNI'
-              value={dni}
-              mode='outlined'
-              keyboardType='numeric'
-              onChangeText={setDni}
+              value={form.dni}
+              mode="outlined"
+              keyboardType="numeric"
+              onChangeText={(value) => setForm((prev) => ({ ...prev, dni: value }))}
             />
 
+            <Text style={styles.label}>👤 Nombre:</Text>
             <TextInput
-              label='Nombre'
-              value={name}
-              mode='outlined'
-              onChangeText={setName}
+              value={form.name}
+              mode="outlined"
+              onChangeText={(value) => setForm((prev) => ({ ...prev, name: value }))}
             />
 
+            <Text style={styles.label}>📞 Teléfono:</Text>
             <TextInput
-              label='Teléfono'
-              value={phone}
-              mode='outlined'
-              keyboardType='phone-pad'
-              onChangeText={setPhone}
+              value={form.phone}
+              mode="outlined"
+              keyboardType="phone-pad"
+              onChangeText={(value) => setForm((prev) => ({ ...prev, phone: value }))}
             />
 
+            <Text style={styles.label}>📧 Correo Electrónico:</Text>
             <TextInput
-              label='Correo Electrónico'
-              value={email}
-              mode='outlined'
-              keyboardType='email-address'
-              onChangeText={setEmail}
+              value={form.email}
+              mode="outlined"
+              keyboardType="email-address"
+              onChangeText={(value) => setForm((prev) => ({ ...prev, email: value }))}
             />
 
+            <Text style={styles.label}>📍 Dirección:</Text>
             <TextInput
-              label='Dirección'
-              value={address}
-              mode='outlined'
+              value={form.address}
+              mode="outlined"
               multiline
-              onChangeText={setAddress}
+              onChangeText={(value) => setForm((prev) => ({ ...prev, address: value }))}
             />
 
             <Button
               style={styles.buttonSend}
-              mode='contained'
+              mode="contained"
               onPress={handleCreateClient}
-              icon={'arrow-right'}
+              icon={'account-check'}
+              loading={loadingCreation}
               contentStyle={{ flexDirection: 'row-reverse' }}
+              disabled={
+                form.dni === '' ||
+                form.name.length < 2 ||
+                form.phone === '' ||
+                form.email === '' ||
+                form.address === '' ||
+                loadingCreation
+              }
             >
-              Guardar Cliente
+              {loadingCreation ? 'Guardando...' : 'Guardar Cliente'}
             </Button>
           </View>
         </ScrollView>
+        <Snackbar
+          visible={showSnack}
+          onDismiss={() => setShowSnack(false)}
+          duration={1500}
+          action={{
+            label: '',
+            icon: 'close',
+            onPress: () => setShowSnack(false),
+          }}
+        >
+          ✅ ¡Cliente guardado exitosamente!
+        </Snackbar>
       </SafeAreaView>
     </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    gap: 20,
-  },
-  containerScroll: {
-    marginHorizontal: 16,
-  },
-  buttonSend: {
-    marginTop: 30,
-    marginHorizontal: 20,
-  },
+  container: { flex: 1 },
+  containerScroll: { marginHorizontal: 16, padding: 16, backgroundColor: '#f8f8f8', borderRadius: 10 },
+  header: { textAlign: 'center', marginVertical: 20, fontWeight: 'bold', fontSize: 22, },
+  label: { marginTop: 20, marginBottom: 5, fontWeight: 'bold', color: '#333' },
+  buttonSend: { marginTop: 30, },
 });
