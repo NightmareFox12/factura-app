@@ -1,4 +1,4 @@
-import { invoicesData } from '@/test/invoiceData';
+import { invoicesData } from '@/dataTest/invoiceData';
 import React, { useState } from 'react';
 import { View, StyleSheet, Alert, ScrollView } from 'react-native';
 import { DataTable, FAB, Searchbar, Button, Snackbar, Text } from 'react-native-paper';

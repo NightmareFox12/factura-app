@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Snackbar, Text, TextInput } from 'react-native-paper';
-import { clientsData } from '@/test/clientsData';
+import { clientsData } from '@/dataTest/clientsData';
 
 export default function ClientForm() {
   const [form, setForm] = useState({
@@ -45,52 +45,62 @@ export default function ClientForm() {
       <SafeAreaView style={styles.container}>
         <ScrollView>
           <View style={styles.containerScroll}>
-            <Text variant="headlineSmall" style={styles.header}>
+            <Text variant='headlineSmall' style={styles.header}>
               🏷️ Datos del Cliente
             </Text>
 
             <Text style={styles.label}>📌 DNI:</Text>
             <TextInput
               value={form.dni}
-              mode="outlined"
-              keyboardType="numeric"
-              onChangeText={(value) => setForm((prev) => ({ ...prev, dni: value }))}
+              mode='outlined'
+              keyboardType='numeric'
+              onChangeText={(value) =>
+                setForm((prev) => ({ ...prev, dni: value }))
+              }
             />
 
             <Text style={styles.label}>👤 Nombre:</Text>
             <TextInput
               value={form.name}
-              mode="outlined"
-              onChangeText={(value) => setForm((prev) => ({ ...prev, name: value }))}
+              mode='outlined'
+              onChangeText={(value) =>
+                setForm((prev) => ({ ...prev, name: value }))
+              }
             />
 
             <Text style={styles.label}>📞 Teléfono:</Text>
             <TextInput
               value={form.phone}
-              mode="outlined"
-              keyboardType="phone-pad"
-              onChangeText={(value) => setForm((prev) => ({ ...prev, phone: value }))}
+              mode='outlined'
+              keyboardType='phone-pad'
+              onChangeText={(value) =>
+                setForm((prev) => ({ ...prev, phone: value }))
+              }
             />
 
             <Text style={styles.label}>📧 Correo Electrónico:</Text>
             <TextInput
               value={form.email}
-              mode="outlined"
-              keyboardType="email-address"
-              onChangeText={(value) => setForm((prev) => ({ ...prev, email: value }))}
+              mode='outlined'
+              keyboardType='email-address'
+              onChangeText={(value) =>
+                setForm((prev) => ({ ...prev, email: value }))
+              }
             />
 
             <Text style={styles.label}>📍 Dirección:</Text>
             <TextInput
               value={form.address}
-              mode="outlined"
+              mode='outlined'
               multiline
-              onChangeText={(value) => setForm((prev) => ({ ...prev, address: value }))}
+              onChangeText={(value) =>
+                setForm((prev) => ({ ...prev, address: value }))
+              }
             />
 
             <Button
               style={styles.buttonSend}
-              mode="contained"
+              mode='contained'
               onPress={handleCreateClient}
               icon={'account-check'}
               loading={loadingCreation}
@@ -118,7 +128,7 @@ export default function ClientForm() {
             onPress: () => setShowSnack(false),
           }}
         >
-          ✅ ¡Cliente guardado exitosamente!
+          ¡Cliente guardado exitosamente!
         </Snackbar>
       </SafeAreaView>
     </SafeAreaProvider>
@@ -127,8 +137,18 @@ export default function ClientForm() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  containerScroll: { marginHorizontal: 16, padding: 16, backgroundColor: '#f8f8f8', borderRadius: 10 },
-  header: { textAlign: 'center', marginVertical: 20, fontWeight: 'bold', fontSize: 22, },
+  containerScroll: {
+    marginHorizontal: 16,
+    padding: 16,
+    backgroundColor: '#f8f8f8',
+    borderRadius: 10,
+  },
+  header: {
+    textAlign: 'center',
+    marginVertical: 20,
+    fontWeight: 'bold',
+    fontSize: 22,
+  },
   label: { marginTop: 20, marginBottom: 5, fontWeight: 'bold', color: '#333' },
-  buttonSend: { marginTop: 30, },
+  buttonSend: { marginTop: 30 },
 });

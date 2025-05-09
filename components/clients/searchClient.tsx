@@ -2,19 +2,19 @@ import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { IconButton, Menu, Searchbar, useTheme } from 'react-native-paper';
 
-type SearchProductProps = {
+type SearchClientProps = {
   searchQuery: string;
   filterSelected: number;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
   setFilterSelected: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const SearchProduct = ({
+const SearchClient = ({
   searchQuery,
   filterSelected,
   setSearchQuery,
   setFilterSelected,
-}: SearchProductProps) => {
+}: SearchClientProps) => {
   const theme = useTheme();
 
   //states
@@ -123,4 +123,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchProduct;
+export default SearchClient;

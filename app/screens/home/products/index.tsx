@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { productsData } from '@/test/productsData';
+import { productsData } from '@/dataTest/productsData';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { DataTable, FAB, Searchbar } from 'react-native-paper';

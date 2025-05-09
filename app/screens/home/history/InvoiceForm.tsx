@@ -3,9 +3,9 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Snackbar, Text, TextInput, Searchbar, HelperText, IconButton, Card } from 'react-native-paper';
 // import RNPickerSelect from 'react-native-picker-select';
-import { productsData } from '@/test/productsData';
-import { clientsData } from '@/test/clientsData';
-import { invoicesData } from '@/test/invoiceData';
+import { productsData } from '@/dataTest/productsData';
+import { clientsData } from '@/dataTest/clientsData';
+import { invoicesData } from '@/dataTest/invoiceData';
 
 export default function InvoiceForm() {
   // Estados

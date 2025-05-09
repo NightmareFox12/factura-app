@@ -1,15 +1,18 @@
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { productsData } from '@/test/productsData';
+import { productsData } from '@/dataTest/productsData';
+import { IFormProduct } from '@/types/product.entity';
 import { Button, Snackbar, Text, TextInput, Switch } from 'react-native-paper';
 
 export default function ProductForm() {
   // states
-  const [name, setName] = useState<string>('');
-  const [price, setPrice] = useState<string>('');
-  const [stock, setStock] = useState<string>('');
-  const [IVA, setIVA] = useState<boolean>(false);
+  const [form, setForm] = useState<IFormProduct>({
+    name: '',
+    price: '',
+    stock: '',
+    IVA: false,
+  });
 
   const [loadingCreation, setLoadingCreation] = useState<boolean>(false);
   const [showSnack, setShowSnack] = useState<boolean>(false);
@@ -20,16 +23,18 @@ export default function ProductForm() {
       setLoadingCreation(true);
       productsData.push({
         id: productsData.length + 1,
-        name,
-        price,
-        stock: parseInt(stock),
-        IVA,
+        name: form.name,
+        price: form.price,
+        stock: parseInt(form.stock),
+        IVA: form.IVA,
       });
 
-      setName('');
-      setPrice('');
-      setStock('');
-      setIVA(false);
+      setForm({
+        name: '',
+        price: '',
+        stock: '',
+        IVA: false,
+      });
       setShowSnack(true);
     } catch (err) {
       console.log(err);
@@ -49,19 +54,22 @@ export default function ProductForm() {
 
             <Text style={styles.label}>📝 Nombre del Producto:</Text>
             <TextInput
-              value={name}
+              value={form.name}
               mode='outlined'
               placeholder='Nombre del producto'
-              onChangeText={setName}
+              onChangeText={(x) => setForm((prev) => ({ ...prev, name: x }))}
             />
 
             <Text style={styles.label}>💰 Precio:</Text>
             <TextInput
-              value={price}
+              value={form.price}
               mode='outlined'
               keyboardType='numeric'
               placeholder='Precio'
-              onChangeText={(x) => (/^\d+$/.test(x) || x === '') && setPrice(x)}
+              onChangeText={(x) =>
+                (/^\d+(\.\d+)?$/.test(x) || x === '') &&
+                setForm((prev) => ({ ...prev, price: x }))
+              }
               right={
                 <TextInput.Affix text='$' textStyle={{ fontWeight: 'bold' }} />
               }
@@ -69,16 +77,22 @@ export default function ProductForm() {
 
             <Text style={styles.label}>📦 Stock disponible:</Text>
             <TextInput
-              value={stock}
+              value={form.stock}
               mode='outlined'
               keyboardType='numeric'
               placeholder='Stock disponible'
-              onChangeText={(x) => (/^\d+$/.test(x) || x === '') && setStock(x)}
+              onChangeText={(x) =>
+                (/^\d+$/.test(x) || x === '') &&
+                setForm((prev) => ({ ...prev, stock: x }))
+              }
             />
 
             <View style={styles.switchContainer}>
               <Text style={styles.label}>⚖️ ¿Producto con IVA?</Text>
-              <Switch value={IVA} onValueChange={setIVA} />
+              <Switch
+                value={form.IVA}
+                onValueChange={(x) => setForm((prev) => ({ ...prev, iva: x }))}
+              />
             </View>
 
             <Button
@@ -89,9 +103,9 @@ export default function ProductForm() {
               loading={loadingCreation}
               contentStyle={{ flexDirection: 'row-reverse' }}
               disabled={
-                name.length < 2 ||
-                price === '' ||
-                stock === '' ||
+                form.name.length < 2 ||
+                form.price === '' ||
+                form.stock === '' ||
                 loadingCreation
               }
             >
