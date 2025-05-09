@@ -9,6 +9,7 @@ export interface IFilterListItems {
 }
 
 type SearchClientProps = {
+  inputLabel: string,
   searchQuery: string;
   filterSelected: number;
   items: IFilterListItems[];
@@ -17,6 +18,7 @@ type SearchClientProps = {
 };
 
 const SearchComponent = ({
+  inputLabel,
   searchQuery,
   filterSelected,
   items,
@@ -33,7 +35,7 @@ const SearchComponent = ({
       <Searchbar
         value={searchQuery}
         onChangeText={setSearchQuery}
-        placeholder='Buscar cliente...'
+        placeholder={inputLabel}
         style={{ flex: 1 }}
         clearIcon='close'
       />

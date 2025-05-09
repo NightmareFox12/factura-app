@@ -39,7 +39,7 @@ export default function Clients() {
     return clientsData.filter((x) => {
       switch (filterSelected) {
         case 0:
-          return x.curp.includes(searchQuery);
+          return x.curp.includes(searchQuery.toUpperCase());
         case 1:
           return x.name.toLowerCase().includes(searchQuery.toLowerCase());
         case 2:
@@ -51,6 +51,7 @@ export default function Clients() {
   return (
     <View style={styles.container}>
       <SearchComponent
+        inputLabel='Buscar Cliente...'
         searchQuery={searchQuery}
         filterSelected={filterSelected}
         items={listItems}
@@ -71,9 +72,11 @@ export default function Clients() {
               key={x.id}
               style={y % 2 === 0 ? styles.evenRow : styles.oddRow}
             >
-              <DataTable.Cell style={{ flex: 1 }}>{x.curp}</DataTable.Cell>
-              <DataTable.Cell style={{ flex: 2 }}>{x.name}</DataTable.Cell>
-              <DataTable.Cell style={{ flex: 1 }}>{x.phone}</DataTable.Cell>
+              <DataTable.Cell style={styles.itemTable}>{x.curp}</DataTable.Cell>
+              <DataTable.Cell style={styles.itemTable}>{x.name}</DataTable.Cell>
+              <DataTable.Cell style={styles.itemTable}>
+                {x.phone}
+              </DataTable.Cell>
             </DataTable.Row>
           ))}
         </DataTable>
@@ -91,15 +94,8 @@ export default function Clients() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, backgroundColor: '#fff' },
-  header: {
-    textAlign: 'center',
-    marginBottom: 20,
-    fontWeight: 'bold',
-    fontSize: 22,
-  },
-
   dataTable: { backgroundColor: '#ffffff', borderRadius: 10 },
-  title: { color: 'white', fontWeight: 'bold', textAlign: 'center' },
+  itemTable: { flex: 1, justifyContent: 'center' },
   evenRow: { backgroundColor: '#E3F2FD' },
   oddRow: { backgroundColor: 'white' },
   fab: { position: 'absolute', right: 10 },
