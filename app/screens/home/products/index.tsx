@@ -7,6 +7,7 @@ import SearchComponent, {
   IFilterListItems,
 } from '@/components/searchComponent';
 import { DataTable, FAB } from 'react-native-paper';
+import ProductTable from '@/components/productTable';
 
 const filterItems: IFilterListItems[] = [
   {
@@ -33,21 +34,6 @@ export default function Products() {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [filterSelected, setFilterSelected] = useState<number>(0);
 
-  //memo
-  const filteredProducts = useMemo(() => {
-    if (!searchQuery) return productsData;
-    return productsData.filter((x) => {
-      switch (filterSelected) {
-        case 0:
-          return x.name.toLowerCase().includes(searchQuery.toLowerCase());
-        case 1:
-          return x.price.toString().includes(searchQuery);
-        case 2:
-          return x.stock.toString().includes(searchQuery);
-      }
-    });
-  }, [filterSelected, searchQuery]);
-
   return (
     <View style={styles.container}>
       <SearchComponent
@@ -59,35 +45,7 @@ export default function Products() {
         setSearchQuery={setSearchQuery}
       />
 
-      <ScrollView>
-        <DataTable style={styles.dataTable}>
-          <DataTable.Header>
-            <DataTable.Title>📦 Nombre</DataTable.Title>
-            <DataTable.Title numeric>💰 Precio</DataTable.Title>
-            <DataTable.Title numeric>📦 Stock</DataTable.Title>
-            <DataTable.Title style={{ marginLeft: 30 }}>⚖️ IVA</DataTable.Title>
-          </DataTable.Header>
-
-          {filteredProducts.map((x, y) => (
-            <DataTable.Row
-              key={x.id}
-              style={y % 2 === 0 ? styles.evenRow : styles.oddRow}
-            >
-              <DataTable.Cell style={{ flex: 2 }}>{x.name}</DataTable.Cell>
-              <DataTable.Cell numeric style={{ flex: 1, marginRight: 15 }}>
-                ${x.price}
-              </DataTable.Cell>
-              <DataTable.Cell numeric style={{ flex: 1, marginRight: 30 }}>
-                {x.stock}
-              </DataTable.Cell>
-              <DataTable.Cell style={{ flex: 1, marginLeft: 30 }}>
-                {x.IVA ? '✅' : '❌'}
-              </DataTable.Cell>
-            </DataTable.Row>
-          ))}
-        </DataTable>
-      </ScrollView>
-
+      <ProductTable searchQuery={searchQuery} filterSelected={filterSelected} />
       <FAB
         icon='plus'
         label='Añadir producto'
@@ -107,9 +65,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 22,
   },
-  dataTable: { backgroundColor: '#ffffff', borderRadius: 10 },
-  title: { color: 'white', fontWeight: 'bold', textAlign: 'center' },
-  evenRow: { backgroundColor: '#E3F2FD' },
-  oddRow: { backgroundColor: 'white' },
+
   fab: { position: 'absolute', right: 10 },
 });

@@ -10,6 +10,8 @@ import {
   HelperText,
   IconButton,
   Card,
+  List,
+  useTheme,
 } from 'react-native-paper';
 // import RNPickerSelect from 'react-native-picker-select';
 import { productsData } from '@/dataTest/productsData';
@@ -18,10 +20,11 @@ import { invoicesData } from '@/dataTest/invoiceData';
 import ModalSearchClient from '@/components/modalSearchClient';
 
 export default function InvoiceForm() {
+  const theme = useTheme();
+
   // states
   const [selectedClient, setSelectedClient] = useState<number | null>(null);
 
-  const [clientSearch, setClientSearch] = useState<string>('');
   const [date, setDate] = useState<string>('');
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
   const [productSearch, setProductSearch] = useState<string>('');
@@ -32,22 +35,11 @@ export default function InvoiceForm() {
   const [showSnack, setShowSnack] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  //functions
-  const filteredClients = useMemo(
-    () =>
-      clientsData.filter((client) =>
-        client.name.toLowerCase().includes(clientSearch.toLowerCase())
-      ),
-    [clientSearch]
-  );
-
-  const filteredProducts = useMemo(
-    () =>
-      productsData.filter((product) =>
-        product.name.toLowerCase().includes(productSearch.toLowerCase())
-      ),
-    [productSearch]
-  );
+  //memos
+  const clientData = useMemo(() => {
+    if (selectedClient === null) return;
+    return clientsData.find((x) => x.id === selectedClient);
+  }, [selectedClient]);
 
   // Cálculo de montos totales
   const totalAmount = useMemo(() => {
@@ -113,17 +105,25 @@ export default function InvoiceForm() {
             <Text variant='titleMedium' style={styles.label}>
               🔎 Buscar cliente
             </Text>
-            <Button
-              mode='contained'
-              icon={'magnify'}
-              style={styles.buttonModal}
-              onPress={() => setShowModal(true)}
-              contentStyle={{ flexDirection: 'row-reverse' }}
-            >
-              Buscar
-            </Button>
-
-            <Text style={styles.label}>👤 Cliente:</Text>
+            {clientData === undefined ? (
+              <Button
+                mode='contained'
+                icon={'magnify'}
+                style={styles.buttonModal}
+                onPress={() => setShowModal(true)}
+                contentStyle={{ flexDirection: 'row-reverse' }}
+              >
+                Buscar
+              </Button>
+            ) : (
+              <List.Item
+                left={(props) => <List.Icon {...props} icon='account' />}
+                title={`${clientData.name} ${clientData.lastName}`}
+                description={clientData.email}
+                onPress={() => setShowModal(true)}
+                style={{ backgroundColor: theme.colors.secondaryContainer,borderRadius: 5 }}
+              />
+            )}
 
             <Text style={styles.label}>📅 Fecha:</Text>
             <TextInput
@@ -141,13 +141,6 @@ export default function InvoiceForm() {
             />
 
             <Text style={styles.label}>🛒 Producto:</Text>
-            {/* <RNPickerSelect 
-              onValueChange={(value) => setSelectedProduct(value)} 
-              items={filteredProducts.map(product => ({ label: product.name, value: product.name }))} 
-              placeholder={{ label: 'Selecciona un producto', value: null }} 
-              style={pickerStyles} 
-            /> */}
-
             <Text style={styles.label}>🔢 Cantidad:</Text>
             <TextInput
               label='Cantidad'
