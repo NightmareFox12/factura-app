@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { productsData } from '@/dataTest/productsData';
-import { IFormProduct } from '@/types/product.entity';
+import { IProductsData } from '@/types/product.entity';
 import {
   Button,
   Snackbar,
@@ -14,7 +14,8 @@ import {
 
 export default function ProductForm() {
   // states
-  const [form, setForm] = useState<IFormProduct>({
+  const [form, setForm] = useState<IProductsData>({
+    id: productsData.length,
     name: '',
     price: '',
     stock: '',
@@ -32,11 +33,12 @@ export default function ProductForm() {
         id: productsData.length + 1,
         name: form.name,
         price: form.price,
-        stock: parseInt(form.stock),
+        stock: parseInt(form.stock.toString()),
         IVA: form.IVA,
       });
 
       setForm({
+        id: productsData.length,
         name: '',
         price: '',
         stock: '',
@@ -93,7 +95,7 @@ export default function ProductForm() {
 
             <Text style={styles.label}>📦 Stock disponible:</Text>
             <TextInput
-              value={form.stock}
+              value={form.stock.toString()}
               mode='outlined'
               keyboardType='numeric'
               placeholder='Stock disponible'
@@ -123,7 +125,7 @@ export default function ProductForm() {
               disabled={
                 form.name.length < 1 ||
                 !/^\d+(\.\d+)?$/.test(form.price) ||
-                !/^\d+(\.\d+)?$/.test(form.stock) ||
+                !/^\d+(\.\d+)?$/.test(form.stock.toString()) ||
                 loadingCreation
               }
             >

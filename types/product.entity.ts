@@ -1,6 +1,7 @@
-export interface IFormProduct {
+export interface IProductsData {
+  id: number;
   name: string;
   price: string;
-  stock: string;
+  stock: string | number;
   IVA: boolean;
 }

@@ -3,35 +3,64 @@ import { productsData } from '@/dataTest/productsData';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
-import { DataTable, FAB, Searchbar } from 'react-native-paper';
+import SearchComponent, {
+  IFilterListItems,
+} from '@/components/searchComponent';
+import { DataTable, FAB } from 'react-native-paper';
+
+const filterItems: IFilterListItems[] = [
+  {
+    id: 0,
+    title: 'Nombre',
+    icon: 'package-variant',
+  },
+  {
+    id: 1,
+    title: 'Precio',
+    icon: 'currency-usd',
+  },
+  {
+    id: 2,
+    title: 'Stock',
+    icon: 'dolly',
+  },
+];
 
 export default function Products() {
   const insets = useSafeAreaInsets();
 
   //states
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [filterSelected, setFilterSelected] = useState<number>(0);
 
   //memo
   const filteredProducts = useMemo(() => {
     if (!searchQuery) return productsData;
-    return productsData.filter((x) =>
-      x.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  }, [searchQuery]);
+    return productsData.filter((x) => {
+      switch (filterSelected) {
+        case 0:
+          return x.name.toLowerCase().includes(searchQuery.toLowerCase());
+        case 1:
+          return x.price.includes(searchQuery);
+        case 2:
+          return x.stock.toString().includes(searchQuery);
+      }
+    });
+  }, [filterSelected, searchQuery]);
 
   /**
-   * TODO: buscar una manera de hacer el searchbar global
    * TODO: componentizar las tablas
    * TODO: me falta history y arreglar lo de las facturas
    */
   return (
     <View style={styles.container}>
-      <Searchbar
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-        placeholder='Buscar producto...'
-        style={{ marginBottom: 20 }}
-        clearIcon='close'
+      <SearchComponent
+        inputLabel='Buscar producto...'
+        filterSelected={filterSelected}
+        searchQuery={searchQuery}
+        items={filterItems}
+        setFilterSelected={setFilterSelected}
+        setSearchQuery={setSearchQuery}
       />
 
       <ScrollView>
@@ -48,9 +77,7 @@ export default function Products() {
               key={x.id}
               style={y % 2 === 0 ? styles.evenRow : styles.oddRow}
             >
-              <DataTable.Cell style={{ flex: 2 }}>
-                {x.name}
-              </DataTable.Cell>
+              <DataTable.Cell style={{ flex: 2 }}>{x.name}</DataTable.Cell>
               <DataTable.Cell numeric style={{ flex: 1, marginRight: 15 }}>
                 ${x.price}
               </DataTable.Cell>
