@@ -38,7 +38,6 @@ export default function ProductForm() {
     }
   };
 
-  
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
