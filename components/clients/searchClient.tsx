@@ -25,7 +25,7 @@ const SearchClient = ({
       <Searchbar
         value={searchQuery}
         onChangeText={setSearchQuery}
-        placeholder='Buscar Cliente...'
+        placeholder='Buscar cliente...'
         style={{ flex: 1 }}
         clearIcon='close'
       />

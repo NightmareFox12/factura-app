@@ -3,7 +3,6 @@ import { Drawer } from 'expo-router/drawer';
 import { Icon } from 'react-native-paper';
 
 export default function HomeLayout() {
-  
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Drawer initialRouteName='index'>
@@ -74,6 +73,15 @@ export default function HomeLayout() {
             drawerIcon: (props) => (
               <Icon source={'history'} size={props.size} color={props.color} />
             ),
+          }}
+        />
+
+        <Drawer.Screen
+          name='history/invoiceForm'
+          options={{
+            drawerLabel: () => null,
+            title: 'Crear Factura',
+            drawerItemStyle: { display: 'none' },
           }}
         />
 

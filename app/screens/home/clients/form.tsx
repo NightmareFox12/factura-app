@@ -3,11 +3,15 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Snackbar, Text, TextInput } from 'react-native-paper';
 import { clientsData } from '@/dataTest/clientsData';
+import { IClientData } from '@/types/client.entity';
 
 export default function ClientForm() {
-  const [form, setForm] = useState({
-    dni: '',
+  //state
+  const [form, setForm] = useState<IClientData>({
+    id: clientsData.length,
+    curp: '',
     name: '',
+    lastName: '',
     phone: '',
     email: '',
     address: '',
@@ -16,18 +20,17 @@ export default function ClientForm() {
   const [loadingCreation, setLoadingCreation] = useState<boolean>(false);
   const [showSnack, setShowSnack] = useState<boolean>(false);
 
-  // Función para guardar el cliente
+  //functions
   const handleCreateClient = async () => {
     try {
       setLoadingCreation(true);
-      clientsData.push({
-        id: clientsData.length + 1,
-        ...form,
-      });
+      clientsData.push({ ...form });
 
       setForm({
-        dni: '',
+        id: clientsData.length,
+        curp: '',
         name: '',
+        lastName: '',
         phone: '',
         email: '',
         address: '',
@@ -49,14 +52,15 @@ export default function ClientForm() {
               🏷️ Datos del Cliente
             </Text>
 
-            <Text style={styles.label}>📌 DNI:</Text>
+            <Text style={styles.label}>📌 CURP:</Text>
             <TextInput
-              value={form.dni}
+              value={form.curp}
               mode='outlined'
-              keyboardType='numeric'
-              onChangeText={(value) =>
-                setForm((prev) => ({ ...prev, dni: value }))
-              }
+              autoCapitalize='characters'
+              onChangeText={(curp) => {
+                setForm((prev) => ({ ...prev, curp: curp.toUpperCase() }));
+              }}
+              placeholder='CURP'
             />
 
             <Text style={styles.label}>👤 Nombre:</Text>
@@ -66,6 +70,17 @@ export default function ClientForm() {
               onChangeText={(value) =>
                 setForm((prev) => ({ ...prev, name: value }))
               }
+              placeholder='Nombres'
+            />
+
+            <Text style={styles.label}>👤 Apellidos:</Text>
+            <TextInput
+              value={form.lastName}
+              mode='outlined'
+              onChangeText={(lastName) =>
+                setForm((prev) => ({ ...prev, lastName }))
+              }
+              placeholder='Apellidos'
             />
 
             <Text style={styles.label}>📞 Teléfono:</Text>
@@ -76,6 +91,7 @@ export default function ClientForm() {
               onChangeText={(value) =>
                 setForm((prev) => ({ ...prev, phone: value }))
               }
+              placeholder='Teléfono'
             />
 
             <Text style={styles.label}>📧 Correo Electrónico:</Text>
@@ -86,6 +102,7 @@ export default function ClientForm() {
               onChangeText={(value) =>
                 setForm((prev) => ({ ...prev, email: value }))
               }
+              placeholder='Correo Electrónico'
             />
 
             <Text style={styles.label}>📍 Dirección:</Text>
@@ -96,6 +113,7 @@ export default function ClientForm() {
               onChangeText={(value) =>
                 setForm((prev) => ({ ...prev, address: value }))
               }
+              placeholder='Dirección'
             />
 
             <Button
@@ -106,7 +124,7 @@ export default function ClientForm() {
               loading={loadingCreation}
               contentStyle={{ flexDirection: 'row-reverse' }}
               disabled={
-                form.dni === '' ||
+                form.curp.length < 18 ||
                 form.name.length < 2 ||
                 form.phone === '' ||
                 form.email === '' ||

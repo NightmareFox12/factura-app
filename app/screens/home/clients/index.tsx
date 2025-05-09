@@ -3,8 +3,8 @@ import { clientsData } from '@/dataTest/clientsData';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
-import { DataTable, FAB } from 'react-native-paper';
 import SearchClient from '@/components/clients/searchClient';
+import { DataTable, FAB } from 'react-native-paper';
 
 export default function Clients() {
   const insets = useSafeAreaInsets();

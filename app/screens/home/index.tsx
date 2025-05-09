@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { useEffect } from 'react';
 import { BackHandler, StyleSheet, ScrollView } from 'react-native';
 import { FAB } from 'react-native-paper';
@@ -33,7 +34,7 @@ export default function Home() {
           icon='plus'
           label='Nueva Factura'
           style={[styles.fab, { bottom: insets.bottom + 10 }]}
-          onPress={() => console.log('Crear nueva factura')}
+          onPress={() => router.navigate('/screens/home/history/invoiceForm')}
         />
       </SafeAreaView>
     </SafeAreaProvider>

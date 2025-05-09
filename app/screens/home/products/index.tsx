@@ -2,8 +2,8 @@ import React, { useMemo, useState } from 'react';
 import { productsData } from '@/dataTest/productsData';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { DataTable, FAB, Searchbar } from 'react-native-paper';
 import { router } from 'expo-router';
+import { DataTable, FAB, Searchbar } from 'react-native-paper';
 
 export default function Products() {
   const insets = useSafeAreaInsets();
@@ -19,6 +19,11 @@ export default function Products() {
     );
   }, [searchQuery]);
 
+  /**
+   * TODO: buscar una manera de hacer el searchbar global
+   * TODO: componentizar las tablas
+   * TODO: me falta history y arreglar lo de las facturas
+   */
   return (
     <View style={styles.container}>
       <Searchbar
