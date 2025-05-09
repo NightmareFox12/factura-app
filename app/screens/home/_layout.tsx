@@ -3,6 +3,7 @@ import { Drawer } from 'expo-router/drawer';
 import { Icon } from 'react-native-paper';
 
 export default function HomeLayout() {
+  
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Drawer initialRouteName='index'>
@@ -33,6 +34,15 @@ export default function HomeLayout() {
         />
 
         <Drawer.Screen
+          name='products/form'
+          options={{
+            drawerLabel: () => null,
+            title: 'Crear Producto',
+            drawerItemStyle: { display: 'none' },
+          }}
+        />
+
+        <Drawer.Screen
           name='clients/index'
           options={{
             drawerLabel: 'Clientes',
@@ -48,6 +58,15 @@ export default function HomeLayout() {
         />
 
         <Drawer.Screen
+          name='clients/form'
+          options={{
+            drawerLabel: () => null,
+            title: 'Crear Cliente',
+            drawerItemStyle: { display: 'none' },
+          }}
+        />
+
+        <Drawer.Screen
           name='history/index'
           options={{
             drawerLabel: 'Historial',
@@ -59,38 +78,16 @@ export default function HomeLayout() {
         />
 
         <Drawer.Screen
-          name='clients/form'
-          options={{
-            drawerLabel: 'Crear Cliente',
-            title: 'Crear Cliente',
-            drawerIcon: (props) => (
-              <Icon
-                source={'account-plus'}
-                size={props.size}
-                color={props.color}
-              />
-            ),
-          }}
-        />
-
-        <Drawer.Screen
-          name='products/form'
-          options={{
-            drawerLabel: 'Crear Producto',
-            title: 'Crear Producto',
-            drawerIcon: (props) => (
-              <Icon source={'plus-box'} size={props.size} color={props.color} />
-            ),
-          }}
-        />
-
-        <Drawer.Screen
           name='testing/index'
           options={{
             drawerLabel: 'PDF para miguel (eliminar)',
-            title:'PDF para miguel (eliminar)',
+            title: 'PDF para miguel (eliminar)',
             drawerIcon: (props) => (
-              <Icon source={'file-pdf-box'} size={props.size} color={props.color} />
+              <Icon
+                source={'file-pdf-box'}
+                size={props.size}
+                color={props.color}
+              />
             ),
           }}
         />
