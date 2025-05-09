@@ -44,5 +44,6 @@ export let invoicesData: IInvoicesData[] = [
 ];
 
 export const updateInvoiceData = (newData: IInvoicesData[]) => {
+  console.log(newData)
   invoicesData = newData;
 };

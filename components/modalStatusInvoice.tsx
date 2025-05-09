@@ -38,7 +38,13 @@ const ModalStatusInvoice = ({
     updateInvoiceData(
       invoicesData.map((x) =>
         x.id === invoiceSelected.invoiceID
-          ? { ...x, status: IInvoiceStatus.Completed }
+          ? {
+              ...x,
+              status:
+                x.status === IInvoiceStatus.Completed
+                  ? IInvoiceStatus.Canceled
+                  : IInvoiceStatus.Completed,
+            }
           : x
       )
     );

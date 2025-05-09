@@ -52,7 +52,7 @@ export default function Invoices() {
   //memos
   const filterInvoices = useMemo(() => {
     if (!searchQuery) return invoicesData;
-
+    if (invoiceSelected === null) return invoicesData
     return invoicesData.filter((x) => {
       switch (filterSelected) {
         case 0:
@@ -65,34 +65,34 @@ export default function Invoices() {
           return x.amount.includes(searchQuery);
       }
     });
-  }, [filterSelected, searchQuery]);
+  }, [filterSelected, invoiceSelected, searchQuery]);
 
   //functions
-  const toggleStatus = (invoiceId: number) => {
-    const updatedInvoices = invoicesData.map((invoice) => {
-      if (invoice.id === invoiceId) {
-        // const newStatus =
-        // invoice.status === 'Aceptado' ? 'Cancelado' : 'Aceptado';
-        // Alert.alert(
-        //   'Confirmación',
-        //   `¿Seguro que deseas cambiar el estado a "${newStatus}"?`,
-        //   [
-        //     { text: 'Cancelar', style: 'cancel' },
-        //     {
-        //       text: 'Confirmar',
-        //       onPress: () => {
-        //         invoice.status = newStatus;
-        //         setShowSnack(true);
-        //         setSnackMessage(`Estado cambiado a ${newStatus}`);
-        //         setInvoices([...updatedInvoices]);
-        //       },
-        //     },
-        //   ]
-        // );
-      } else return;
-      return invoice;
-    });
-  };
+  // const toggleStatus = (invoiceId: number) => {
+  //   const updatedInvoices = invoicesData.map((invoice) => {
+  //     if (invoice.id === invoiceId) {
+  //       // const newStatus =
+  //       // invoice.status === 'Aceptado' ? 'Cancelado' : 'Aceptado';
+  //       // Alert.alert(
+  //       //   'Confirmación',
+  //       //   `¿Seguro que deseas cambiar el estado a "${newStatus}"?`,
+  //       //   [
+  //       //     { text: 'Cancelar', style: 'cancel' },
+  //       //     {
+  //       //       text: 'Confirmar',
+  //       //       onPress: () => {
+  //       //         invoice.status = newStatus;
+  //       //         setShowSnack(true);
+  //       //         setSnackMessage(`Estado cambiado a ${newStatus}`);
+  //       //         setInvoices([...updatedInvoices]);
+  //       //       },
+  //       //     },
+  //       //   ]
+  //       // );
+  //     } else return;
+  //     return invoice;
+  //   });
+  // };
 
   /**
    * TODO: componentizar las tablas
