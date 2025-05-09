@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { IconButton, Menu, Searchbar } from 'react-native-paper';
+import { IconButton, Menu, Searchbar, useTheme } from 'react-native-paper';
 
 type SearchProductProps = {
   searchQuery: string;
@@ -15,6 +15,8 @@ const SearchProduct = ({
   setSearchQuery,
   setFilterSelected,
 }: SearchProductProps) => {
+  const theme = useTheme();
+
   //states
   const [showFilter, setShowFilter] = useState<boolean>(false);
 
@@ -46,10 +48,18 @@ const SearchProduct = ({
           }}
           leadingIcon={'file-document'}
           style={styles.menuItem}
-          titleStyle={{ fontSize: 14 }}
+          titleStyle={{
+            fontSize: 14,
+            color:
+              filterSelected === 0
+                ? theme.colors.onPrimaryContainer
+                : theme.colors.onBackground,
+          }}
           containerStyle={[
             styles.menuItemContainer,
-            filterSelected === 0 && styles.menuContainerActive,
+            filterSelected === 0 && {
+              backgroundColor: theme.colors.inversePrimary,
+            },
           ]}
         />
 
@@ -61,10 +71,18 @@ const SearchProduct = ({
           }}
           leadingIcon={'text'}
           style={styles.menuItem}
-          titleStyle={{ fontSize: 14 }}
+          titleStyle={{
+            fontSize: 14,
+            color:
+              filterSelected === 1
+                ? theme.colors.onPrimaryContainer
+                : theme.colors.onBackground,
+          }}
           containerStyle={[
             styles.menuItemContainer,
-            filterSelected === 1 && styles.menuContainerActive,
+            filterSelected === 1 && {
+              backgroundColor: theme.colors.inversePrimary,
+            },
           ]}
         />
         <Menu.Item
@@ -74,11 +92,19 @@ const SearchProduct = ({
             setShowFilter(false);
           }}
           leadingIcon={'phone'}
-          titleStyle={{ fontSize: 14 }}
+          titleStyle={{
+            fontSize: 14,
+            color:
+              filterSelected === 2
+                ? theme.colors.onPrimaryContainer
+                : theme.colors.onBackground,
+          }}
           style={styles.menuItem}
           containerStyle={[
             styles.menuItemContainer,
-            filterSelected === 2 && styles.menuContainerActive,
+            filterSelected === 2 && {
+              backgroundColor: theme.colors.inversePrimary,
+            },
           ]}
         />
       </Menu>
@@ -93,11 +119,7 @@ const styles = StyleSheet.create({
   },
   menuItemContainer: {
     padding: 5,
-    borderRadius: 10,
-  },
-  menuContainerActive: {
-    borderRadius: 10,
-    backgroundColor: '#E3a2FD',
+    borderRadius: 5,
   },
 });
 
