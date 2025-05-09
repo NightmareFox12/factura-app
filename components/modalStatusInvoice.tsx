@@ -50,6 +50,10 @@ const ModalStatusInvoice = ({
           : data
       )
     );
+    setInvoiceSelected({
+      invoiceID: null,
+      showModal: false,
+    });
     setShowSnack(true);
   };
 
@@ -65,9 +69,9 @@ const ModalStatusInvoice = ({
           Cambiar Estado
         </Dialog.Title>
         <Dialog.Content>
-          <Text variant='bodyMedium'>
-            ¿Esta seguro de cambiar{' '}
-            {IInvoiceStatus.Completed === status ? 'cafe' : 'hambre'}?
+          <Text variant='bodyLarge' style={{ textAlign: 'center' }}>
+            ¿Esta seguro de cambiar el estado a{' '}
+            {IInvoiceStatus.Completed === status ? 'Activo' : 'Cancelado'}?
           </Text>
         </Dialog.Content>
         <Dialog.Actions>

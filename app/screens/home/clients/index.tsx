@@ -7,6 +7,7 @@ import SearchComponent, {
   IFilterListItems,
 } from '@/components/searchComponent';
 import { DataTable, FAB } from 'react-native-paper';
+import ClientTable from '@/components/clientTable';
 
 const listItems: IFilterListItems[] = [
   {
@@ -33,21 +34,6 @@ export default function Clients() {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [filterSelected, setFilterSelected] = useState<number>(0);
 
-  //memos
-  const filteredClients = useMemo(() => {
-    if (!searchQuery) return clientsData;
-    return clientsData.filter((x) => {
-      switch (filterSelected) {
-        case 0:
-          return x.curp.includes(searchQuery.toUpperCase());
-        case 1:
-          return x.name.toLowerCase().includes(searchQuery.toLowerCase());
-        case 2:
-          return x.phone.includes(searchQuery);
-      }
-    });
-  }, [filterSelected, searchQuery]);
-
   return (
     <View style={styles.container}>
       <SearchComponent
@@ -59,28 +45,10 @@ export default function Clients() {
         setFilterSelected={setFilterSelected}
       />
 
-      <ScrollView>
-        <DataTable style={styles.dataTable}>
-          <DataTable.Header>
-            <DataTable.Title>📌 CURP</DataTable.Title>
-            <DataTable.Title>👤 Nombre</DataTable.Title>
-            <DataTable.Title>📞 Teléfono</DataTable.Title>
-          </DataTable.Header>
-
-          {filteredClients.map((x, y) => (
-            <DataTable.Row
-              key={x.id}
-              style={y % 2 === 0 ? styles.evenRow : styles.oddRow}
-            >
-              <DataTable.Cell style={styles.itemTable}>{x.curp}</DataTable.Cell>
-              <DataTable.Cell style={styles.itemTable}>{x.name}</DataTable.Cell>
-              <DataTable.Cell style={styles.itemTable}>
-                {x.phone}
-              </DataTable.Cell>
-            </DataTable.Row>
-          ))}
-        </DataTable>
-      </ScrollView>
+      <ClientTable
+        searchQuery={searchQuery}
+        filterSelected={filterSelected}
+      />
 
       <FAB
         icon='plus'

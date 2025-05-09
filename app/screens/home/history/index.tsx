@@ -19,6 +19,7 @@ import {
   Snackbar,
   useTheme,
 } from 'react-native-paper';
+import { router } from 'expo-router';
 
 const filterItems: IFilterListItems[] = [
   {
@@ -149,7 +150,7 @@ export default function Invoices() {
           icon='plus'
           label='Nueva factura'
           style={[styles.fab, { bottom: insets.bottom + 10 }]}
-          onPress={() => console.log('Agregar nueva factura')}
+          onPress={() => router.navigate('/screens/home/history/invoiceForm')}
         />
 
         <Snackbar
