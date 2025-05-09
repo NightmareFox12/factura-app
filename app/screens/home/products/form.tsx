@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { Button, Snackbar, Text, TextInput, Switch } from 'react-native-paper';
 import { productsData } from '@/test/productsData';
+import { Button, Snackbar, Text, TextInput, Switch } from 'react-native-paper';
 
 export default function ProductForm() {
-  // Estados
+  // states
   const [name, setName] = useState<string>('');
   const [price, setPrice] = useState<string>('');
   const [stock, setStock] = useState<string>('');
@@ -14,7 +14,7 @@ export default function ProductForm() {
   const [loadingCreation, setLoadingCreation] = useState<boolean>(false);
   const [showSnack, setShowSnack] = useState<boolean>(false);
 
-  // Función para guardar el producto
+  // functions
   const handleCreateProduct = async () => {
     try {
       setLoadingCreation(true);
@@ -38,30 +38,42 @@ export default function ProductForm() {
     }
   };
 
+  
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <ScrollView>
           <View style={styles.containerScroll}>
-            <Text variant="headlineSmall" style={styles.header}>📦 Datos del Producto</Text>
+            <Text variant='headlineSmall' style={styles.header}>
+              📦 Datos del Producto
+            </Text>
 
             <Text style={styles.label}>📝 Nombre del Producto:</Text>
-            <TextInput value={name} mode="outlined" onChangeText={setName} />
+            <TextInput
+              value={name}
+              mode='outlined'
+              placeholder='Nombre del producto'
+              onChangeText={setName}
+            />
 
             <Text style={styles.label}>💰 Precio:</Text>
             <TextInput
               value={price}
-              mode="outlined"
-              keyboardType="numeric"
+              mode='outlined'
+              keyboardType='numeric'
+              placeholder='Precio'
               onChangeText={(x) => (/^\d+$/.test(x) || x === '') && setPrice(x)}
-              right={<TextInput.Affix text="$" textStyle={{ fontWeight: 'bold' }} />}
+              right={
+                <TextInput.Affix text='$' textStyle={{ fontWeight: 'bold' }} />
+              }
             />
 
             <Text style={styles.label}>📦 Stock disponible:</Text>
             <TextInput
               value={stock}
-              mode="outlined"
-              keyboardType="numeric"
+              mode='outlined'
+              keyboardType='numeric'
+              placeholder='Stock disponible'
               onChangeText={(x) => (/^\d+$/.test(x) || x === '') && setStock(x)}
             />
 
@@ -72,12 +84,17 @@ export default function ProductForm() {
 
             <Button
               style={styles.buttonSend}
-              mode="contained"
+              mode='contained'
               onPress={handleCreateProduct}
               icon={'cart'}
               loading={loadingCreation}
               contentStyle={{ flexDirection: 'row-reverse' }}
-              disabled={name.length < 2 || price === '' || stock === '' || loadingCreation}
+              disabled={
+                name.length < 2 ||
+                price === '' ||
+                stock === '' ||
+                loadingCreation
+              }
             >
               {loadingCreation ? 'Guardando...' : 'Guardar Producto'}
             </Button>
@@ -93,7 +110,7 @@ export default function ProductForm() {
             onPress: () => setShowSnack(false),
           }}
         >
-          ✅ ¡Producto guardado exitosamente!
+          ¡Producto guardado exitosamente!
         </Snackbar>
       </SafeAreaView>
     </SafeAreaProvider>
@@ -102,9 +119,24 @@ export default function ProductForm() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  containerScroll: { marginHorizontal: 16, padding: 16, backgroundColor: '#f8f8f8', borderRadius: 10 },
-  header: { textAlign: 'center', marginVertical: 20, fontWeight: 'bold', fontSize: 22,},
+  containerScroll: {
+    marginHorizontal: 16,
+    padding: 16,
+    backgroundColor: '#f8f8f8',
+    borderRadius: 10,
+  },
+  header: {
+    textAlign: 'center',
+    marginVertical: 20,
+    fontWeight: 'bold',
+    fontSize: 22,
+  },
   label: { marginTop: 20, marginBottom: 5, fontWeight: 'bold', color: '#333' },
-  switchContainer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginVertical: 10 },
-  buttonSend: { marginTop: 30,},
+  switchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginVertical: 10,
+  },
+  buttonSend: { marginTop: 30 },
 });

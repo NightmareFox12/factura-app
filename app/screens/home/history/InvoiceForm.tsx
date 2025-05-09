@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Snackbar, Text, TextInput, Searchbar, HelperText, IconButton, Card } from 'react-native-paper';
-import RNPickerSelect from 'react-native-picker-select';
+// import RNPickerSelect from 'react-native-picker-select';
 import { productsData } from '@/test/productsData';
 import { clientsData } from '@/test/clientsData';
 import { invoicesData } from '@/test/invoiceData';
@@ -70,12 +70,12 @@ export default function InvoiceForm() {
             <Searchbar placeholder="Buscar cliente..." value={clientSearch} onChangeText={setClientSearch} />
 
             <Text style={styles.label}>👤 Cliente:</Text>
-            <RNPickerSelect 
+            {/* <RNPickerSelect 
               onValueChange={(value) => setSelectedClient(value)} 
               items={filteredClients.map(client => ({ label: client.name, value: client.name }))} 
               placeholder={{ label: 'Selecciona un cliente', value: null }} 
               style={pickerStyles} 
-            />
+            /> */}
 
             <Text style={styles.label}>📅 Fecha:</Text>
             <TextInput label="Fecha (YYYY-MM-DD)" value={date} mode="outlined" onChangeText={setDate} />
@@ -84,12 +84,12 @@ export default function InvoiceForm() {
             <Searchbar placeholder="Buscar producto..." value={productSearch} onChangeText={setProductSearch} />
 
             <Text style={styles.label}>🛒 Producto:</Text>
-            <RNPickerSelect 
+            {/* <RNPickerSelect 
               onValueChange={(value) => setSelectedProduct(value)} 
               items={filteredProducts.map(product => ({ label: product.name, value: product.name }))} 
               placeholder={{ label: 'Selecciona un producto', value: null }} 
               style={pickerStyles} 
-            />
+            /> */}
 
             <Text style={styles.label}>🔢 Cantidad:</Text>
             <TextInput label="Cantidad" value={quantity} mode="outlined" keyboardType="numeric"

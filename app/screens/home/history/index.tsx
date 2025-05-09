@@ -6,11 +6,14 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function Invoices() {
   const insets = useSafeAreaInsets();
+
+  //states
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [invoices, setInvoices] = useState(invoicesData);
   const [showSnack, setShowSnack] = useState<boolean>(false);
   const [snackMessage, setSnackMessage] = useState<string>('');
 
+  //functions
   const handleSearch = (query: string) => {
     setSearchQuery(query);
     setInvoices(
@@ -48,8 +51,6 @@ export default function Invoices() {
 
   return (
     <View style={styles.container}>
-
-
       <Searchbar value={searchQuery} onChangeText={handleSearch} placeholder="Buscar Factura..." style={styles.searchbar} />
 
       <ScrollView>
