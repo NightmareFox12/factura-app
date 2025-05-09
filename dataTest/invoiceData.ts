@@ -1,51 +1,48 @@
-type InvoicesData = {
-  id: number;
-  number: string;
-  client: string;
-  amount: string;
-  amountWithIVA: string;
-  status: string;
-};
+import { IInvoicesData, IInvoiceStatus } from '@/types/invoice.entity';
 
-export const invoicesData: InvoicesData[] = [
+export let invoicesData: IInvoicesData[] = [
   {
     id: 1,
     number: 'F001',
-    client: 'Juan Pérez',
-    amount: '$120',
-    amountWithIVA: '$139.20',
-    status: 'Pagado',
+    clientID: 1,
+    amount: '120',
+    amountWithIVA: 139.2,
+    status: IInvoiceStatus.Completed,
   },
   {
     id: 2,
     number: 'F002',
-    client: 'María González',
-    amount: '$150',
-    amountWithIVA: '$174.00',
-    status: 'Pagado',
+    clientID: 1,
+    amount: '150',
+    amountWithIVA: 174.0,
+    status: IInvoiceStatus.Completed,
   },
   {
     id: 3,
     number: 'F003',
-    client: 'Carlos Rodríguez',
-    amount: '$600',
-    amountWithIVA: '$696.00',
-    status: 'Pagado',
+    clientID: 2,
+    amount: '600',
+    amountWithIVA: 696.0,
+    status: IInvoiceStatus.Completed,
   },
   {
     id: 4,
     number: 'F004',
-    client: 'Ana Martínez',
-    amount: '$450',
-    amountWithIVA: '$522.00',
-    status: 'Cancelado',
+    clientID: 3,
+    amount: '450',
+    amountWithIVA: 522.0,
+    status: IInvoiceStatus.Canceled,
   },
   {
     id: 5,
     number: 'F005',
-    client: 'Gabriel Montana',
-    amount: '$250',
-    amountWithIVA: '$290.00',
-    status: 'Cancelado',
+    clientID: 4,
+    amount: '250',
+    amountWithIVA: 290.0,
+    status: IInvoiceStatus.Canceled,
   },
 ];
+
+export const updateInvoiceData = (newData: IInvoicesData[]) => {
+  invoicesData = newData;
+};

@@ -41,17 +41,13 @@ export default function Products() {
         case 0:
           return x.name.toLowerCase().includes(searchQuery.toLowerCase());
         case 1:
-          return x.price.includes(searchQuery);
+          return x.price.toString().includes(searchQuery);
         case 2:
           return x.stock.toString().includes(searchQuery);
       }
     });
   }, [filterSelected, searchQuery]);
 
-  /**
-   * TODO: componentizar las tablas
-   * TODO: me falta history y arreglar lo de las facturas
-   */
   return (
     <View style={styles.container}>
       <SearchComponent

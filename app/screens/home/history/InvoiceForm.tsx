@@ -122,7 +122,7 @@ export default function InvoiceForm() {
             <Button style={styles.button} mode="contained" onPress={() => {}} icon="receipt">Generar Factura</Button>
           </View>
         </ScrollView>
-        <Snackbar visible={showSnack} onDismiss={() => setShowSnack(false)}>✅ ¡Factura generada!</Snackbar>
+        <Snackbar visible={showSnack} onDismiss={() => setShowSnack(false)}> ¡Factura creada exitosamente!</Snackbar>
       </SafeAreaView>
     </SafeAreaProvider>
   );

@@ -13,7 +13,7 @@ export const MyLightTheme = {
   ...MD3LightTheme,
   colors: {
     ...MD3LightTheme.colors,
-    primary: '#BADA55',
+    primary: '#BD93BD',
   },
 };
 

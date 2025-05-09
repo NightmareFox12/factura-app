@@ -71,7 +71,7 @@ export default function ProductForm() {
 
             <Text style={styles.label}>💰 Precio:</Text>
             <TextInput
-              value={form.price}
+              value={form.price.toString()}
               mode='outlined'
               keyboardType='numeric'
               placeholder='Precio'
@@ -82,12 +82,16 @@ export default function ProductForm() {
               right={
                 <TextInput.Affix text='$' textStyle={{ fontWeight: 'bold' }} />
               }
-              error={!/^\d+(\.\d+)?$/.test(form.price) && form.price.length > 0}
+              error={
+                !/^\d+(\.\d+)?$/.test(form.price.toString()) &&
+                form.price.toString().length > 0
+              }
             />
             <HelperText
               type='error'
               visible={
-                !/^\d+(\.\d+)?$/.test(form.price) && form.price.length > 0
+                !/^\d+(\.\d+)?$/.test(form.price.toString()) &&
+                form.price.toString().length > 0
               }
             >
               Precio invalido.
@@ -124,7 +128,7 @@ export default function ProductForm() {
               contentStyle={{ flexDirection: 'row-reverse' }}
               disabled={
                 form.name.length < 1 ||
-                !/^\d+(\.\d+)?$/.test(form.price) ||
+                !/^\d+(\.\d+)?$/.test(form.price.toString()) ||
                 !/^\d+(\.\d+)?$/.test(form.stock.toString()) ||
                 loadingCreation
               }
