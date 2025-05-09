@@ -26,6 +26,7 @@ export default function Products() {
         onChangeText={setSearchQuery}
         placeholder='Buscar producto...'
         style={{ marginBottom: 20 }}
+        clearIcon='close'
       />
 
       <ScrollView>

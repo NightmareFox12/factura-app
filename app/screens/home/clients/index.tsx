@@ -1,27 +1,41 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { clientsData } from '@/test/clientsData';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
-import { DataTable, FAB, Searchbar, Text } from 'react-native-paper';
+import { DataTable, FAB } from 'react-native-paper';
+import SearchProduct from '@/components/products/searchProduct';
 
 export default function Clients() {
   const insets = useSafeAreaInsets();
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [clients, setClients] = useState(clientsData);
 
-  const handleSearch = (query: string) => {
-    setSearchQuery(query);
-    setClients(
-      clientsData.filter((c) =>
-        c.name.toLowerCase().includes(query.toLowerCase())
-      )
-    );
-  };
+  //states
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [filterSelected, setFilterSelected] = useState<number>(0);
+
+  //memos
+  const filteredClients = useMemo(() => {
+    if (!searchQuery) return clientsData;
+    return clientsData.filter((x) => {
+      switch (filterSelected) {
+        case 0:
+          return x.dni.includes(searchQuery);
+        case 1:
+          return x.name.toLowerCase().includes(searchQuery.toLowerCase());
+        case 2:
+          return x.phone.includes(searchQuery);
+      }
+    });
+  }, [filterSelected, searchQuery]);
 
   return (
     <View style={styles.container}>
-      <Searchbar value={searchQuery} onChangeText={handleSearch} placeholder="Buscar Cliente..." style={styles.searchbar} />
+      <SearchProduct
+        searchQuery={searchQuery}
+        filterSelected={filterSelected}
+        setSearchQuery={setSearchQuery}
+        setFilterSelected={setFilterSelected}
+      />
 
       <ScrollView>
         <DataTable style={styles.dataTable}>
@@ -31,19 +45,22 @@ export default function Clients() {
             <DataTable.Title>📞 Teléfono</DataTable.Title>
           </DataTable.Header>
 
-          {clients.map((client, index) => (
-            <DataTable.Row key={client.id} style={index % 2 === 0 ? styles.evenRow : styles.oddRow}>
-              <DataTable.Cell style={{ flex: 1 }}>{client.dni}</DataTable.Cell>
-              <DataTable.Cell style={{ flex: 2 }}>{client.name}</DataTable.Cell>
-              <DataTable.Cell style={{ flex: 1 }}>{client.phone}</DataTable.Cell>
+          {filteredClients.map((x, y) => (
+            <DataTable.Row
+              key={x.id}
+              style={y % 2 === 0 ? styles.evenRow : styles.oddRow}
+            >
+              <DataTable.Cell style={{ flex: 1 }}>{x.dni}</DataTable.Cell>
+              <DataTable.Cell style={{ flex: 2 }}>{x.name}</DataTable.Cell>
+              <DataTable.Cell style={{ flex: 1 }}>{x.phone}</DataTable.Cell>
             </DataTable.Row>
           ))}
         </DataTable>
       </ScrollView>
 
       <FAB
-        icon="plus"
-        label="Añadir Cliente"
+        icon='plus'
+        label='Añadir Cliente'
         style={[styles.fab, { bottom: insets.bottom + 10 }]}
         onPress={() => router.navigate('/screens/home/clients/form')}
       />
@@ -53,8 +70,13 @@ export default function Clients() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, backgroundColor: '#fff' },
-  header: { textAlign: 'center', marginBottom: 20, fontWeight: 'bold', fontSize: 22,},
-  searchbar: { marginBottom: 20 },
+  header: {
+    textAlign: 'center',
+    marginBottom: 20,
+    fontWeight: 'bold',
+    fontSize: 22,
+  },
+
   dataTable: { backgroundColor: '#ffffff', borderRadius: 10 },
   title: { color: 'white', fontWeight: 'bold', textAlign: 'center' },
   evenRow: { backgroundColor: '#E3F2FD' },
