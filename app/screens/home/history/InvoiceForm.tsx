@@ -19,7 +19,8 @@ import ModalSearchClient from '@/components/modalSearchClient';
 
 export default function InvoiceForm() {
   // states
-  const [selectedClient, setSelectedClient] = useState<string | null>(null);
+  const [selectedClient, setSelectedClient] = useState<number | null>(null);
+
   const [clientSearch, setClientSearch] = useState<string>('');
   const [date, setDate] = useState<string>('');
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
@@ -96,7 +97,13 @@ export default function InvoiceForm() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <ModalSearchClient setShowModal={setShowModal} showModal={showModal} />
+        <ModalSearchClient
+          setShowModal={setShowModal}
+          showModal={showModal}
+          selectedClient={selectedClient}
+          setSelectedClient={setSelectedClient}
+        />
+
         <ScrollView>
           <View style={styles.containerScroll}>
             <Text variant='titleLarge' style={styles.headerText}>

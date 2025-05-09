@@ -6,9 +6,18 @@ import { DataTable } from 'react-native-paper';
 type ClientTableProps = {
   searchQuery: string;
   filterSelected: number;
+  selectedClient?: number | null;
+  setSelectedClient?: React.Dispatch<React.SetStateAction<number | null>>;
+  setShowModal?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const ClientTable = ({ searchQuery, filterSelected }: ClientTableProps) => {
+const ClientTable = ({
+  searchQuery,
+  selectedClient,
+  filterSelected,
+  setSelectedClient,
+  setShowModal,
+}: ClientTableProps) => {
   //memos
   const filteredClients = useMemo(() => {
     if (!searchQuery) return clientsData;
@@ -38,9 +47,39 @@ const ClientTable = ({ searchQuery, filterSelected }: ClientTableProps) => {
             key={x.id}
             style={y % 2 === 0 ? styles.evenRow : styles.oddRow}
           >
-            <DataTable.Cell style={styles.itemTable}>{x.curp}</DataTable.Cell>
-            <DataTable.Cell style={styles.itemTable}>{x.name}</DataTable.Cell>
-            <DataTable.Cell style={styles.itemTable}>{x.phone}</DataTable.Cell>
+            <DataTable.Cell
+              onPress={() => {
+                selectedClient !== undefined &&
+                  setSelectedClient !== undefined &&
+                  setSelectedClient(x.id);
+                setShowModal !== undefined && setShowModal(false);
+              }}
+              style={styles.itemTable}
+            >
+              {x.curp}
+            </DataTable.Cell>
+            <DataTable.Cell
+              onPress={() => {
+                selectedClient !== undefined &&
+                  setSelectedClient !== undefined &&
+                  setSelectedClient(x.id);
+                setShowModal !== undefined && setShowModal(false);
+              }}
+              style={styles.itemTable}
+            >
+              {x.name}
+            </DataTable.Cell>
+            <DataTable.Cell
+              onPress={() => {
+                selectedClient !== undefined &&
+                  setSelectedClient !== undefined &&
+                  setSelectedClient(x.id);
+                setShowModal !== undefined && setShowModal(false);
+              }}
+              style={styles.itemTable}
+            >
+              {x.phone}
+            </DataTable.Cell>
           </DataTable.Row>
         ))}
       </DataTable>
