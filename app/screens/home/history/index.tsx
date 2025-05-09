@@ -1,22 +1,24 @@
 import { invoicesData } from '@/dataTest/invoiceData';
 import React, { useMemo, useState } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {
+  SafeAreaProvider,
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 import SearchComponent, {
   IFilterListItems,
 } from '@/components/searchComponent';
 import { clientsData } from '@/dataTest/clientsData';
 import { IInvoiceStatus } from '@/types/invoice.entity';
+import ModalStatusInvoice from '@/components/modalStatusInvoice';
 import {
   DataTable,
   FAB,
-  Dialog,
-  Text,
-  Portal,
   IconButton,
+  Snackbar,
   useTheme,
 } from 'react-native-paper';
-import ModalStatusInvoice from '@/components/modalStatusInvoice';
 
 const filterItems: IFilterListItems[] = [
   {
@@ -43,6 +45,7 @@ export default function Invoices() {
   //states
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [filterSelected, setFilterSelected] = useState<number>(0);
+  const [showSnack, setShowSnack] = useState<boolean>(false);
 
   const [invoiceSelected, setInvoiceSelected] = useState<{
     invoiceID: number | null;
@@ -52,7 +55,7 @@ export default function Invoices() {
   //memos
   const filterInvoices = useMemo(() => {
     if (!searchQuery) return invoicesData;
-    if (invoiceSelected === null) return invoicesData
+    if (invoiceSelected === null) return invoicesData;
     return invoicesData.filter((x) => {
       switch (filterSelected) {
         case 0:
@@ -67,113 +70,109 @@ export default function Invoices() {
     });
   }, [filterSelected, invoiceSelected, searchQuery]);
 
-  //functions
-  // const toggleStatus = (invoiceId: number) => {
-  //   const updatedInvoices = invoicesData.map((invoice) => {
-  //     if (invoice.id === invoiceId) {
-  //       // const newStatus =
-  //       // invoice.status === 'Aceptado' ? 'Cancelado' : 'Aceptado';
-  //       // Alert.alert(
-  //       //   'Confirmación',
-  //       //   `¿Seguro que deseas cambiar el estado a "${newStatus}"?`,
-  //       //   [
-  //       //     { text: 'Cancelar', style: 'cancel' },
-  //       //     {
-  //       //       text: 'Confirmar',
-  //       //       onPress: () => {
-  //       //         invoice.status = newStatus;
-  //       //         setShowSnack(true);
-  //       //         setSnackMessage(`Estado cambiado a ${newStatus}`);
-  //       //         setInvoices([...updatedInvoices]);
-  //       //       },
-  //       //     },
-  //       //   ]
-  //       // );
-  //     } else return;
-  //     return invoice;
-  //   });
-  // };
-
   /**
    * TODO: componentizar las tablas
-   * TODO: me falta history y arreglar lo de las facturas
+   * TODO: mostrar un snackbar o algo parecido al cambiar el estado
+   * TODO: ARREGLAR EL FORM de history
    */
   return (
-    <View style={styles.container}>
-      <SearchComponent
-        inputLabel='Buscar Factura'
-        searchQuery={searchQuery}
-        filterSelected={filterSelected}
-        items={filterItems}
-        setSearchQuery={setSearchQuery}
-        setFilterSelected={setFilterSelected}
-      />
-      <ModalStatusInvoice
-        invoiceSelected={invoiceSelected}
-        setInvoiceSelected={setInvoiceSelected}
-      />
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.content}>
+          <SearchComponent
+            inputLabel='Buscar Factura'
+            searchQuery={searchQuery}
+            filterSelected={filterSelected}
+            items={filterItems}
+            setSearchQuery={setSearchQuery}
+            setFilterSelected={setFilterSelected}
+          />
+          <ModalStatusInvoice
+            invoiceSelected={invoiceSelected}
+            setInvoiceSelected={setInvoiceSelected}
+            setShowSnack={setShowSnack}
+          />
 
-      <ScrollView>
-        <DataTable style={styles.dataTable}>
-          <DataTable.Header>
-            <DataTable.Title>📑 Número</DataTable.Title>
-            <DataTable.Title>👤 Cliente</DataTable.Title>
-            <DataTable.Title>💰 Monto</DataTable.Title>
-            <DataTable.Title>⚖️ Estado</DataTable.Title>
-          </DataTable.Header>
+          <ScrollView>
+            <DataTable style={styles.dataTable}>
+              <DataTable.Header>
+                <DataTable.Title>📑 Número</DataTable.Title>
+                <DataTable.Title>👤 Cliente</DataTable.Title>
+                <DataTable.Title>💰 Monto</DataTable.Title>
+                <DataTable.Title>⚖️ Estado</DataTable.Title>
+              </DataTable.Header>
 
-          {filterInvoices.map((invoice, index) => (
-            <DataTable.Row
-              key={invoice.id}
-              style={index % 2 === 0 ? styles.evenRow : styles.oddRow}
-            >
-              <DataTable.Cell>{invoice.number}</DataTable.Cell>
-              <DataTable.Cell style={styles.listItem}>
-                {clientsData.find((x) => x.id === invoice.clientID)?.name ?? ''}{' '}
-                {clientsData.find((x) => x.id === invoice.clientID)?.lastName ??
-                  ''}
-              </DataTable.Cell>
-              <DataTable.Cell numeric style={styles.listItem}>
-                ${invoice.amountWithIVA}
-              </DataTable.Cell>
-              <DataTable.Cell style={styles.listItem}>
-                <IconButton
-                  mode='contained'
-                  iconColor={theme.colors.onPrimary}
-                  icon={
-                    invoice.status === IInvoiceStatus.Completed
-                      ? 'check'
-                      : 'close'
-                  }
-                  onPress={() =>
-                    setInvoiceSelected({
-                      invoiceID: invoice.id,
-                      showModal: true,
-                    })
-                  }
-                  style={
-                    invoice.status === IInvoiceStatus.Completed
-                      ? styles.completedButton
-                      : styles.cancelledButton
-                  }
-                />
-              </DataTable.Cell>
-            </DataTable.Row>
-          ))}
-        </DataTable>
-      </ScrollView>
-      <FAB
-        icon='plus'
-        label='Nueva factura'
-        style={[styles.fab, { bottom: insets.bottom + 10 }]}
-        onPress={() => console.log('Agregar nueva factura')}
-      />
-    </View>
+              {filterInvoices.map((invoice, index) => (
+                <DataTable.Row
+                  key={invoice.id}
+                  style={index % 2 === 0 ? styles.evenRow : styles.oddRow}
+                >
+                  <DataTable.Cell>{invoice.number}</DataTable.Cell>
+                  <DataTable.Cell style={styles.listItem}>
+                    {clientsData.find((x) => x.id === invoice.clientID)?.name ??
+                      ''}{' '}
+                    {clientsData.find((x) => x.id === invoice.clientID)
+                      ?.lastName ?? ''}
+                  </DataTable.Cell>
+                  <DataTable.Cell numeric style={styles.listItem}>
+                    ${invoice.amountWithIVA}
+                  </DataTable.Cell>
+                  <DataTable.Cell style={styles.listItem}>
+                    <IconButton
+                      mode='contained'
+                      iconColor={theme.colors.onPrimary}
+                      icon={
+                        invoice.status === IInvoiceStatus.Completed
+                          ? 'check'
+                          : 'close'
+                      }
+                      onPress={() =>
+                        setInvoiceSelected({
+                          invoiceID: invoice.id,
+                          showModal: true,
+                        })
+                      }
+                      style={
+                        invoice.status === IInvoiceStatus.Completed
+                          ? styles.completedButton
+                          : styles.cancelledButton
+                      }
+                    />
+                  </DataTable.Cell>
+                </DataTable.Row>
+              ))}
+            </DataTable>
+          </ScrollView>
+        </View>
+
+        <FAB
+          icon='plus'
+          label='Nueva factura'
+          style={[styles.fab, { bottom: insets.bottom + 10 }]}
+          onPress={() => console.log('Agregar nueva factura')}
+        />
+
+        <Snackbar
+          visible={showSnack}
+          onDismiss={() => setShowSnack(false)}
+          duration={1500}
+          action={{
+            label: '',
+            icon: 'close',
+            onPress: () => setShowSnack(false),
+          }}
+          style={{ marginBottom: 80, marginHorizontal: 10 }}
+        >
+          ¡Actualizado exitosamente!
+        </Snackbar>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, backgroundColor: '#fff' },
+  container: { flex: 1, backgroundColor: '#fff' },
+  content: { flex: 1, padding: 12 },
   dataTable: { backgroundColor: '#ffffff', borderRadius: 10 },
   listItem: { flex: 1, justifyContent: 'center' },
   evenRow: { backgroundColor: '#E3F2FD' },

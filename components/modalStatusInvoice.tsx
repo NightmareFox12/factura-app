@@ -14,11 +14,13 @@ type modalStatusInvoiceProps = {
       showModal: boolean;
     }>
   >;
+  setShowSnack: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const ModalStatusInvoice = ({
   invoiceSelected,
   setInvoiceSelected,
+  setShowSnack,
 }: modalStatusInvoiceProps) => {
   //states
   const [status, setStatus] = useState<IInvoiceStatus | undefined>(undefined);
@@ -36,18 +38,19 @@ const ModalStatusInvoice = ({
   //functions
   const handleChangeStatus = () => {
     updateInvoiceData(
-      invoicesData.map((x) =>
-        x.id === invoiceSelected.invoiceID
+      invoicesData.map((data) =>
+        data.id === invoiceSelected.invoiceID
           ? {
-              ...x,
+              ...data,
               status:
-                x.status === IInvoiceStatus.Completed
+                data.status === IInvoiceStatus.Completed
                   ? IInvoiceStatus.Canceled
                   : IInvoiceStatus.Completed,
             }
-          : x
+          : data
       )
     );
+    setShowSnack(true);
   };
 
   return (

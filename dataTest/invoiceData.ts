@@ -43,7 +43,5 @@ export let invoicesData: IInvoicesData[] = [
   },
 ];
 
-export const updateInvoiceData = (newData: IInvoicesData[]) => {
-  console.log(newData)
-  invoicesData = newData;
-};
+export const updateInvoiceData = (newData: IInvoicesData[]) =>
+  (invoicesData = newData);
