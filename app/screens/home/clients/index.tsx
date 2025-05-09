@@ -3,8 +3,28 @@ import { clientsData } from '@/dataTest/clientsData';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
-import SearchClient from '@/components/clients/searchClient';
+import SearchComponent, {
+  IFilterListItems,
+} from '@/components/searchComponent';
 import { DataTable, FAB } from 'react-native-paper';
+
+const listItems: IFilterListItems[] = [
+  {
+    id: 0,
+    title: 'CURP',
+    icon: 'file-document',
+  },
+  {
+    id: 1,
+    title: 'name',
+    icon: 'text',
+  },
+  {
+    id: 2,
+    title: 'Teléfono',
+    icon: 'phone',
+  },
+];
 
 export default function Clients() {
   const insets = useSafeAreaInsets();
@@ -19,7 +39,7 @@ export default function Clients() {
     return clientsData.filter((x) => {
       switch (filterSelected) {
         case 0:
-          return x.dni.includes(searchQuery);
+          return x.curp.includes(searchQuery);
         case 1:
           return x.name.toLowerCase().includes(searchQuery.toLowerCase());
         case 2:
@@ -30,9 +50,10 @@ export default function Clients() {
 
   return (
     <View style={styles.container}>
-      <SearchClient
+      <SearchComponent
         searchQuery={searchQuery}
         filterSelected={filterSelected}
+        items={listItems}
         setSearchQuery={setSearchQuery}
         setFilterSelected={setFilterSelected}
       />
@@ -40,7 +61,7 @@ export default function Clients() {
       <ScrollView>
         <DataTable style={styles.dataTable}>
           <DataTable.Header>
-            <DataTable.Title>📌 DNI</DataTable.Title>
+            <DataTable.Title>📌 CURP</DataTable.Title>
             <DataTable.Title>👤 Nombre</DataTable.Title>
             <DataTable.Title>📞 Teléfono</DataTable.Title>
           </DataTable.Header>
@@ -50,7 +71,7 @@ export default function Clients() {
               key={x.id}
               style={y % 2 === 0 ? styles.evenRow : styles.oddRow}
             >
-              <DataTable.Cell style={{ flex: 1 }}>{x.dni}</DataTable.Cell>
+              <DataTable.Cell style={{ flex: 1 }}>{x.curp}</DataTable.Cell>
               <DataTable.Cell style={{ flex: 2 }}>{x.name}</DataTable.Cell>
               <DataTable.Cell style={{ flex: 1 }}>{x.phone}</DataTable.Cell>
             </DataTable.Row>
