@@ -3,7 +3,14 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { productsData } from '@/dataTest/productsData';
 import { IFormProduct } from '@/types/product.entity';
-import { Button, Snackbar, Text, TextInput, Switch } from 'react-native-paper';
+import {
+  Button,
+  Snackbar,
+  Text,
+  TextInput,
+  Switch,
+  HelperText,
+} from 'react-native-paper';
 
 export default function ProductForm() {
   // states
@@ -67,13 +74,22 @@ export default function ProductForm() {
               keyboardType='numeric'
               placeholder='Precio'
               onChangeText={(x) =>
-                (/^\d+(\.\d+)?$/.test(x) || x === '') &&
+                (/^\d+(\.\d*)?$/.test(x) || x === '') &&
                 setForm((prev) => ({ ...prev, price: x }))
               }
               right={
                 <TextInput.Affix text='$' textStyle={{ fontWeight: 'bold' }} />
               }
+              error={!/^\d+(\.\d+)?$/.test(form.price) && form.price.length > 0}
             />
+            <HelperText
+              type='error'
+              visible={
+                !/^\d+(\.\d+)?$/.test(form.price) && form.price.length > 0
+              }
+            >
+              Precio invalido.
+            </HelperText>
 
             <Text style={styles.label}>📦 Stock disponible:</Text>
             <TextInput
@@ -91,7 +107,9 @@ export default function ProductForm() {
               <Text style={styles.label}>⚖️ ¿Producto con IVA?</Text>
               <Switch
                 value={form.IVA}
-                onValueChange={(x) => setForm((prev) => ({ ...prev, iva: x }))}
+                onValueChange={(x) =>
+                  setForm((prev) => ({ ...prev, IVA: !form.IVA }))
+                }
               />
             </View>
 
@@ -103,9 +121,9 @@ export default function ProductForm() {
               loading={loadingCreation}
               contentStyle={{ flexDirection: 'row-reverse' }}
               disabled={
-                form.name.length < 2 ||
-                form.price === '' ||
-                form.stock === '' ||
+                form.name.length < 1 ||
+                !/^\d+(\.\d+)?$/.test(form.price) ||
+                !/^\d+(\.\d+)?$/.test(form.stock) ||
                 loadingCreation
               }
             >
