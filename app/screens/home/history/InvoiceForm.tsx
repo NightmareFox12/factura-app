@@ -11,7 +11,6 @@ import {
   Card,
   List,
   useTheme,
-  Divider,
 } from 'react-native-paper';
 import { productsData } from '@/dataTest/productsData';
 import { clientsData } from '@/dataTest/clientsData';
@@ -232,7 +231,6 @@ export default function InvoiceForm() {
           <View style={[styles.containerScroll, { gap: 2 }]}>
             {invoiceItems.length > 0 && (
               <>
-                <Divider />
                 <Text style={styles.label}>🛍 Productos seleccionados:</Text>
                 {invoiceItems.map((x, y) => (
                   <Card key={y} style={styles.card}>

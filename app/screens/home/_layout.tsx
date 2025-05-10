@@ -88,15 +88,8 @@ export default function HomeLayout() {
         <Drawer.Screen
           name='testing/index'
           options={{
-            drawerLabel: 'PDF para miguel (eliminar)',
+            drawerLabel: () => null,
             title: 'PDF para miguel (eliminar)',
-            drawerIcon: (props) => (
-              <Icon
-                source={'file-pdf-box'}
-                size={props.size}
-                color={props.color}
-              />
-            ),
           }}
         />
       </Drawer>
