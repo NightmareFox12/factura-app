@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import SearchComponent from './searchComponent';
 import { filterProductItems } from '@/app/screens/home/products';
-import { Dialog, Portal, useTheme } from 'react-native-paper';
+import { Dialog, Portal } from 'react-native-paper';
 import ProductTable from './productTable';
 
 type ModalSearchProductProps = {

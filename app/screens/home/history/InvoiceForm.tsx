@@ -227,9 +227,12 @@ export default function InvoiceForm() {
             >
               Agregar Producto
             </Button>
+          </View>
 
+          <View style={[styles.containerScroll, { gap: 2 }]}>
             {invoiceItems.length > 0 && (
               <>
+                <Divider />
                 <Text style={styles.label}>🛍 Productos seleccionados:</Text>
                 {invoiceItems.map((x, y) => (
                   <Card key={y} style={styles.card}>
@@ -253,7 +256,6 @@ export default function InvoiceForm() {
               </>
             )}
 
-            <Divider />
             <Card mode='outlined'>
               <Card.Title
                 titleStyle={styles.textBold}
@@ -263,13 +265,20 @@ export default function InvoiceForm() {
               />
             </Card>
 
-            <Button mode='contained' onPress={() => {}} icon='receipt'>
+            <Button
+              mode='contained'
+              onPress={() => {}}
+              icon='receipt'
+              style={[
+                styles.button,
+                { backgroundColor: theme.colors.tertiary },
+              ]}
+            >
               Generar Factura
             </Button>
           </View>
         </ScrollView>
         <Snackbar visible={showSnack} onDismiss={() => setShowSnack(false)}>
-          {' '}
           ¡Factura creada exitosamente!
         </Snackbar>
       </SafeAreaView>
@@ -290,7 +299,7 @@ const styles = StyleSheet.create({
   headerText: { textAlign: 'center', fontWeight: 'semibold' },
   label: { fontWeight: 'semibold' },
   buttonModal: { width: 160, marginHorizontal: 'auto' },
-  button: { marginTop: 20, backgroundColor: '#6200EE' },
+  button: { marginTop: 20 },
   textBold: { fontWeight: 'bold', textAlign: 'center' },
   card: { marginVertical: 5 },
 });

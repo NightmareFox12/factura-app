@@ -1,13 +1,12 @@
-import React, { useMemo, useState } from 'react';
-import { clientsData } from '@/dataTest/clientsData';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import SearchComponent, {
   IFilterListItems,
 } from '@/components/searchComponent';
-import { DataTable, FAB } from 'react-native-paper';
 import ClientTable from '@/components/clientTable';
+import { FAB } from 'react-native-paper';
 
 export const filterClientItems: IFilterListItems[] = [
   {
@@ -45,10 +44,7 @@ export default function Clients() {
         setFilterSelected={setFilterSelected}
       />
 
-      <ClientTable
-        searchQuery={searchQuery}
-        filterSelected={filterSelected}
-      />
+      <ClientTable searchQuery={searchQuery} filterSelected={filterSelected} />
 
       <FAB
         icon='plus'
