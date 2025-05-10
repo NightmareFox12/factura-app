@@ -11,11 +11,10 @@ import {
   Card,
   List,
   useTheme,
+  Divider,
 } from 'react-native-paper';
-// import RNPickerSelect from 'react-native-picker-select';
 import { productsData } from '@/dataTest/productsData';
 import { clientsData } from '@/dataTest/clientsData';
-import { invoicesData } from '@/dataTest/invoiceData';
 import ModalSearchClient from '@/components/modalSearchClient';
 import ModalSearchProduct from '@/components/modalSearchProduct';
 
@@ -25,12 +24,12 @@ export default function InvoiceForm() {
   // states
   const [selectedClient, setSelectedClient] = useState<number | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<number | null>(null);
-
   const [date, setDate] = useState<string>('');
   const [quantity, setQuantity] = useState<string>('');
   const [invoiceItems, setInvoiceItems] = useState<
-    { product: string; quantity: number }[]
+    { name: string; quantity: number }[]
   >([]);
+
   const [showSnack, setShowSnack] = useState<boolean>(false);
   const [showModalClient, setShowModalClient] = useState<boolean>(false);
   const [showModalProduct, setShowModalProduct] = useState<boolean>(false);
@@ -46,11 +45,11 @@ export default function InvoiceForm() {
     return productsData.find((x) => x.id === selectedProduct);
   }, [selectedProduct]);
 
-  // Cálculo de montos totales
+  // memos
   const totalAmount = useMemo(() => {
     return invoiceItems
       .reduce((total, item) => {
-        const product = productsData.find((p) => p.name === item.product);
+        const product = productsData.find((p) => p.name === item.name);
         return (
           total +
           (product ? parseFloat(product.price.toString()) * item.quantity : 0)
@@ -62,7 +61,7 @@ export default function InvoiceForm() {
   const totalWithIVA = useMemo(() => {
     return invoiceItems
       .reduce((total, item) => {
-        const product = productsData.find((p) => p.name === item.product);
+        const product = productsData.find((p) => p.name === item.name);
         const productPrice = product
           ? parseFloat(product.price.toString()) * item.quantity
           : 0;
@@ -72,17 +71,17 @@ export default function InvoiceForm() {
       .toFixed(2);
   }, [invoiceItems]);
 
-  // Agregar producto
-  // const handleAddProduct = () => {
-  //   if (selectedProduct && parseInt(quantity) > 0) {
-  //     setInvoiceItems([
-  //       ...invoiceItems,
-  //       { product: selectedProduct, quantity: parseInt(quantity) },
-  //     ]);
-  //     setSelectedProduct(null);
-  //     setQuantity('0');
-  //   }
-  // };
+  // functions
+  const handleAddProduct = () => {
+    if (selectedProduct !== null && parseInt(quantity) > 0) {
+      setInvoiceItems([
+        ...invoiceItems,
+        { name: product?.name ?? '', quantity: parseInt(quantity) },
+      ]);
+      setSelectedProduct(null);
+      setQuantity('');
+    }
+  };
 
   // Eliminar producto
   const handleRemoveProduct = (index: number) => {
@@ -172,7 +171,7 @@ export default function InvoiceForm() {
                 </Button>
               ) : (
                 <List.Item
-                  left={(props) => <List.Icon {...props} icon='account' />}
+                  left={(props) => <List.Icon {...props} icon='package' />}
                   title={product.name}
                   description={`Stock Disponible: ${product.stock}`}
                   onPress={() => setShowModalProduct(true)}
@@ -195,6 +194,7 @@ export default function InvoiceForm() {
                     value={quantity}
                     mode='outlined'
                     keyboardType='numeric'
+                    placeholder={`Disponible: ${product.stock}`}
                     onChangeText={(x) =>
                       (/^\d+$/.test(x) || x === '') && setQuantity(x)
                     }
@@ -216,37 +216,52 @@ export default function InvoiceForm() {
 
             <Button
               mode='contained'
-              // onPress={handleAddProduct}
+              onPress={handleAddProduct}
               icon='cart-plus'
+              disabled={
+                client === undefined ||
+                date === '' ||
+                product === undefined ||
+                quantity === ''
+              }
             >
               Agregar Producto
             </Button>
 
-            {/* Lista de productos */}
-            <Text style={styles.label}>🛍 Productos seleccionados:</Text>
-            {invoiceItems.map((x, y) => (
-              <Card key={y} style={styles.card}>
-                <Card.Content>
-                  <Text>
-                    📦 {x.product} - {x.quantity} unidad(es)
-                  </Text>
-                </Card.Content>
-                <Card.Actions>
-                  <IconButton
-                    icon='delete'
-                    iconColor='red'
-                    onPress={() => handleRemoveProduct(y)}
-                  />
-                </Card.Actions>
-              </Card>
-            ))}
+            {invoiceItems.length > 0 && (
+              <>
+                <Text style={styles.label}>🛍 Productos seleccionados:</Text>
+                {invoiceItems.map((x, y) => (
+                  <Card key={y} style={styles.card}>
+                    <Card.Content>
+                      <Text
+                        variant='bodyMedium'
+                        style={{ fontWeight: 'semibold' }}
+                      >
+                        📦 {x.name} - {x.quantity} unidad(es)
+                      </Text>
+                    </Card.Content>
+                    <Card.Actions>
+                      <IconButton
+                        icon='delete'
+                        iconColor='red'
+                        onPress={() => handleRemoveProduct(y)}
+                      />
+                    </Card.Actions>
+                  </Card>
+                ))}
+              </>
+            )}
 
-            <View style={styles.totalContainer}>
-              <Text style={styles.totalText}>💰 Total: ${totalAmount}</Text>
-              <Text style={styles.totalText}>
-                📈 Total con IVA: ${totalWithIVA}
-              </Text>
-            </View>
+            <Divider />
+            <Card mode='outlined'>
+              <Card.Title
+                titleStyle={styles.textBold}
+                subtitleStyle={styles.textBold}
+                title={`💰 Total: ${totalAmount}`}
+                subtitle={`📈 Total con IVA: ${totalWithIVA}`}
+              />
+            </Card>
 
             <Button mode='contained' onPress={() => {}} icon='receipt'>
               Generar Factura
@@ -276,29 +291,6 @@ const styles = StyleSheet.create({
   label: { fontWeight: 'semibold' },
   buttonModal: { width: 160, marginHorizontal: 'auto' },
   button: { marginTop: 20, backgroundColor: '#6200EE' },
-  totalContainer: {
-    marginTop: 20,
-    padding: 10,
-    backgroundColor: '#E3F2FD',
-    borderRadius: 5,
-  },
-  totalText: { fontWeight: 'bold', textAlign: 'center' },
+  textBold: { fontWeight: 'bold', textAlign: 'center' },
   card: { marginVertical: 5 },
 });
-
-const pickerStyles = {
-  inputIOS: {
-    borderWidth: 1,
-    borderColor: '#6200EE',
-    backgroundColor: 'white',
-    padding: 10,
-    borderRadius: 5,
-  },
-  inputAndroid: {
-    borderWidth: 1,
-    borderColor: '#6200EE',
-    backgroundColor: 'white',
-    padding: 10,
-    borderRadius: 5,
-  },
-};
