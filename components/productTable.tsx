@@ -6,9 +6,18 @@ import { DataTable } from 'react-native-paper';
 type ProductTableProps = {
   searchQuery: string;
   filterSelected: number;
+  selectedProduct?: number | null;
+  setSelectedProduct?: React.Dispatch<React.SetStateAction<number | null>>;
+  setShowModal?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const ProductTable = ({ searchQuery, filterSelected }: ProductTableProps) => {
+const ProductTable = ({
+  searchQuery,
+  filterSelected,
+  selectedProduct,
+  setSelectedProduct,
+  setShowModal,
+}: ProductTableProps) => {
   //memo
   const filteredProducts = useMemo(() => {
     if (!searchQuery) return productsData;
@@ -28,10 +37,10 @@ const ProductTable = ({ searchQuery, filterSelected }: ProductTableProps) => {
     <ScrollView>
       <DataTable style={styles.dataTable}>
         <DataTable.Header>
-          <DataTable.Title>📦 Nombre</DataTable.Title>
-          <DataTable.Title numeric>💰 Precio</DataTable.Title>
-          <DataTable.Title numeric>📦 Stock</DataTable.Title>
-          <DataTable.Title style={{ marginLeft: 30 }}>⚖️ IVA</DataTable.Title>
+          <DataTable.Title style={styles.listItem}>📦 Nombre</DataTable.Title>
+          <DataTable.Title style={styles.listItem}>💰 Precio</DataTable.Title>
+          <DataTable.Title style={styles.listItem}>📦 Stock</DataTable.Title>
+          <DataTable.Title style={styles.listItem}>⚖️ IVA</DataTable.Title>
         </DataTable.Header>
 
         {filteredProducts.map((x, y) => (
@@ -39,14 +48,48 @@ const ProductTable = ({ searchQuery, filterSelected }: ProductTableProps) => {
             key={x.id}
             style={y % 2 === 0 ? styles.evenRow : styles.oddRow}
           >
-            <DataTable.Cell style={{ flex: 2 }}>{x.name}</DataTable.Cell>
-            <DataTable.Cell numeric style={{ flex: 1, marginRight: 15 }}>
+            <DataTable.Cell
+              style={styles.listItem}
+              onPress={() => {
+                selectedProduct !== undefined &&
+                  setSelectedProduct !== undefined &&
+                  setSelectedProduct(x.id);
+                setShowModal !== undefined && setShowModal(false);
+              }}
+            >
+              {x.name}
+            </DataTable.Cell>
+            <DataTable.Cell
+              style={styles.listItem}
+              onPress={() => {
+                selectedProduct !== undefined &&
+                  setSelectedProduct !== undefined &&
+                  setSelectedProduct(x.id);
+                setShowModal !== undefined && setShowModal(false);
+              }}
+            >
               ${x.price}
             </DataTable.Cell>
-            <DataTable.Cell numeric style={{ flex: 1, marginRight: 30 }}>
+            <DataTable.Cell
+              style={styles.listItem}
+              onPress={() => {
+                selectedProduct !== undefined &&
+                  setSelectedProduct !== undefined &&
+                  setSelectedProduct(x.id);
+                setShowModal !== undefined && setShowModal(false);
+              }}
+            >
               {x.stock}
             </DataTable.Cell>
-            <DataTable.Cell style={{ flex: 1, marginLeft: 30 }}>
+            <DataTable.Cell
+              style={styles.listItem}
+              onPress={() => {
+                selectedProduct !== undefined &&
+                  setSelectedProduct !== undefined &&
+                  setSelectedProduct(x.id);
+                setShowModal !== undefined && setShowModal(false);
+              }}
+            >
               {x.IVA ? '✅' : '❌'}
             </DataTable.Cell>
           </DataTable.Row>
@@ -57,8 +100,9 @@ const ProductTable = ({ searchQuery, filterSelected }: ProductTableProps) => {
 };
 
 const styles = StyleSheet.create({
-  dataTable: { backgroundColor: '#ffffff', borderRadius: 10 },
+  dataTable: { backgroundColor: '#ffffff', borderRadius: 5 },
   title: { color: 'white', fontWeight: 'bold', textAlign: 'center' },
+  listItem: { flex: 1, justifyContent: 'center' },
   evenRow: { backgroundColor: '#E3F2FD' },
   oddRow: { backgroundColor: 'white' },
 });

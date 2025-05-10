@@ -1,15 +1,14 @@
-import React, { useMemo, useState } from 'react';
-import { productsData } from '@/dataTest/productsData';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import SearchComponent, {
   IFilterListItems,
 } from '@/components/searchComponent';
-import { DataTable, FAB } from 'react-native-paper';
+import { FAB } from 'react-native-paper';
 import ProductTable from '@/components/productTable';
 
-const filterItems: IFilterListItems[] = [
+export const filterProductItems: IFilterListItems[] = [
   {
     id: 0,
     title: 'Nombre',
@@ -40,7 +39,7 @@ export default function Products() {
         inputLabel='Buscar producto...'
         filterSelected={filterSelected}
         searchQuery={searchQuery}
-        items={filterItems}
+        items={filterProductItems}
         setFilterSelected={setFilterSelected}
         setSearchQuery={setSearchQuery}
       />

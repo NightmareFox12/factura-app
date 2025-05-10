@@ -2,6 +2,7 @@ import SearchComponent, { IFilterListItems } from './searchComponent';
 import { useState } from 'react';
 import ClientTable from './clientTable';
 import { Dialog, Portal } from 'react-native-paper';
+import { filterClientItems } from '@/app/screens/home/clients';
 
 type ModalSearchClientProps = {
   showModal: boolean;
@@ -9,24 +10,6 @@ type ModalSearchClientProps = {
   setSelectedClient: React.Dispatch<React.SetStateAction<number | null>>;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
-
-const listItems: IFilterListItems[] = [
-  {
-    id: 0,
-    title: 'CURP',
-    icon: 'file-document',
-  },
-  {
-    id: 1,
-    title: 'name',
-    icon: 'text',
-  },
-  {
-    id: 2,
-    title: 'Teléfono',
-    icon: 'phone',
-  },
-];
 
 const ModalSearchClient = ({
   showModal,
@@ -50,10 +33,10 @@ const ModalSearchClient = ({
         </Dialog.Title>
         <Dialog.Content>
           <SearchComponent
-            inputLabel={''}
+            inputLabel='Buscar cliente...'
             searchQuery={searchQuery}
             filterSelected={filterSelected}
-            items={listItems}
+            items={filterClientItems}
             setSearchQuery={setSearchQuery}
             setFilterSelected={setFilterSelected}
           />

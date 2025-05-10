@@ -9,7 +9,7 @@ import SearchComponent, {
 import { DataTable, FAB } from 'react-native-paper';
 import ClientTable from '@/components/clientTable';
 
-const listItems: IFilterListItems[] = [
+export const filterClientItems: IFilterListItems[] = [
   {
     id: 0,
     title: 'CURP',
@@ -40,7 +40,7 @@ export default function Clients() {
         inputLabel='Buscar Cliente...'
         searchQuery={searchQuery}
         filterSelected={filterSelected}
-        items={listItems}
+        items={filterClientItems}
         setSearchQuery={setSearchQuery}
         setFilterSelected={setFilterSelected}
       />

@@ -6,7 +6,6 @@ import {
   Snackbar,
   Text,
   TextInput,
-  Searchbar,
   HelperText,
   IconButton,
   Card,
@@ -18,28 +17,34 @@ import { productsData } from '@/dataTest/productsData';
 import { clientsData } from '@/dataTest/clientsData';
 import { invoicesData } from '@/dataTest/invoiceData';
 import ModalSearchClient from '@/components/modalSearchClient';
+import ModalSearchProduct from '@/components/modalSearchProduct';
 
 export default function InvoiceForm() {
   const theme = useTheme();
 
   // states
   const [selectedClient, setSelectedClient] = useState<number | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<number | null>(null);
 
   const [date, setDate] = useState<string>('');
-  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
-  const [productSearch, setProductSearch] = useState<string>('');
-  const [quantity, setQuantity] = useState<string>('0');
+  const [quantity, setQuantity] = useState<string>('');
   const [invoiceItems, setInvoiceItems] = useState<
     { product: string; quantity: number }[]
   >([]);
   const [showSnack, setShowSnack] = useState<boolean>(false);
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showModalClient, setShowModalClient] = useState<boolean>(false);
+  const [showModalProduct, setShowModalProduct] = useState<boolean>(false);
 
   //memos
-  const clientData = useMemo(() => {
+  const client = useMemo(() => {
     if (selectedClient === null) return;
     return clientsData.find((x) => x.id === selectedClient);
   }, [selectedClient]);
+
+  const product = useMemo(() => {
+    if (selectedProduct === null) return;
+    return productsData.find((x) => x.id === selectedProduct);
+  }, [selectedProduct]);
 
   // Cálculo de montos totales
   const totalAmount = useMemo(() => {
@@ -68,16 +73,16 @@ export default function InvoiceForm() {
   }, [invoiceItems]);
 
   // Agregar producto
-  const handleAddProduct = () => {
-    if (selectedProduct && parseInt(quantity) > 0) {
-      setInvoiceItems([
-        ...invoiceItems,
-        { product: selectedProduct, quantity: parseInt(quantity) },
-      ]);
-      setSelectedProduct(null);
-      setQuantity('0');
-    }
-  };
+  // const handleAddProduct = () => {
+  //   if (selectedProduct && parseInt(quantity) > 0) {
+  //     setInvoiceItems([
+  //       ...invoiceItems,
+  //       { product: selectedProduct, quantity: parseInt(quantity) },
+  //     ]);
+  //     setSelectedProduct(null);
+  //     setQuantity('0');
+  //   }
+  // };
 
   // Eliminar producto
   const handleRemoveProduct = (index: number) => {
@@ -89,12 +94,21 @@ export default function InvoiceForm() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
+        {/* Start Modals  */}
         <ModalSearchClient
-          setShowModal={setShowModal}
-          showModal={showModal}
+          showModal={showModalClient}
           selectedClient={selectedClient}
+          setShowModal={setShowModalClient}
           setSelectedClient={setSelectedClient}
         />
+
+        <ModalSearchProduct
+          showModal={showModalProduct}
+          selectedProduct={selectedProduct}
+          setShowModal={setShowModalProduct}
+          setSelectedProduct={setSelectedProduct}
+        />
+        {/* End Modals  */}
 
         <ScrollView>
           <View style={styles.containerScroll}>
@@ -102,64 +116,107 @@ export default function InvoiceForm() {
               📜 Datos de la Factura
             </Text>
 
-            <Text variant='titleMedium' style={styles.label}>
-              🔎 Buscar cliente
-            </Text>
-            {clientData === undefined ? (
-              <Button
-                mode='contained'
-                icon={'magnify'}
-                style={styles.buttonModal}
-                onPress={() => setShowModal(true)}
-                contentStyle={{ flexDirection: 'row-reverse' }}
-              >
-                Buscar
-              </Button>
-            ) : (
-              <List.Item
-                left={(props) => <List.Icon {...props} icon='account' />}
-                title={`${clientData.name} ${clientData.lastName}`}
-                description={clientData.email}
-                onPress={() => setShowModal(true)}
-                style={{ backgroundColor: theme.colors.secondaryContainer,borderRadius: 5 }}
+            <View>
+              <Text variant='titleMedium' style={styles.label}>
+                🔎 Buscar cliente
+              </Text>
+              {client === undefined ? (
+                <Button
+                  mode='contained'
+                  icon={'magnify'}
+                  style={styles.buttonModal}
+                  onPress={() => setShowModalClient(true)}
+                  contentStyle={{ flexDirection: 'row-reverse' }}
+                >
+                  Buscar
+                </Button>
+              ) : (
+                <List.Item
+                  left={(props) => <List.Icon {...props} icon='account' />}
+                  title={`${client.name} ${client.lastName}`}
+                  description={client.email}
+                  onPress={() => setShowModalClient(true)}
+                  style={{
+                    backgroundColor: theme.colors.secondaryContainer,
+                    borderRadius: 5,
+                  }}
+                />
+              )}
+            </View>
+
+            <View>
+              <Text variant='titleMedium' style={styles.label}>
+                📅 Fecha:
+              </Text>
+              <TextInput
+                label='Fecha (YYYY-MM-DD)'
+                value={date}
+                mode='outlined'
+                onChangeText={setDate}
               />
-            )}
+            </View>
 
-            <Text style={styles.label}>📅 Fecha:</Text>
-            <TextInput
-              label='Fecha (YYYY-MM-DD)'
-              value={date}
-              mode='outlined'
-              onChangeText={setDate}
-            />
+            <View>
+              <Text variant='titleMedium' style={styles.label}>
+                🔎 Buscar producto:
+              </Text>
+              {product === undefined ? (
+                <Button
+                  mode='contained'
+                  icon={'magnify'}
+                  style={styles.buttonModal}
+                  onPress={() => setShowModalProduct(true)}
+                  contentStyle={{ flexDirection: 'row-reverse' }}
+                >
+                  Buscar
+                </Button>
+              ) : (
+                <List.Item
+                  left={(props) => <List.Icon {...props} icon='account' />}
+                  title={product.name}
+                  description={`Stock Disponible: ${product.stock}`}
+                  onPress={() => setShowModalProduct(true)}
+                  style={{
+                    backgroundColor: theme.colors.secondaryContainer,
+                    borderRadius: 5,
+                  }}
+                />
+              )}
+            </View>
 
-            <Text style={styles.label}>🔎 Buscar producto:</Text>
-            <Searchbar
-              placeholder='Buscar producto...'
-              value={productSearch}
-              onChangeText={setProductSearch}
-            />
-
-            <Text style={styles.label}>🛒 Producto:</Text>
-            <Text style={styles.label}>🔢 Cantidad:</Text>
-            <TextInput
-              label='Cantidad'
-              value={quantity}
-              mode='outlined'
-              keyboardType='numeric'
-              onChangeText={(x) =>
-                (/^\d+$/.test(x) || x === '') && setQuantity(x)
-              }
-            />
-
-            {/* <HelperText type="error" visible={parseInt(quantity) > (productsData.find((p) => p.name === selectedProduct)?.stock || 0)}>
-              La cantidad no puede superar el stock disponible.
-            </HelperText> */}
+            <View>
+              {product && (
+                <>
+                  <Text variant='titleMedium' style={styles.label}>
+                    🔢 Cantidad:
+                  </Text>
+                  <TextInput
+                    label='Cantidad'
+                    value={quantity}
+                    mode='outlined'
+                    keyboardType='numeric'
+                    onChangeText={(x) =>
+                      (/^\d+$/.test(x) || x === '') && setQuantity(x)
+                    }
+                    error={
+                      parseInt(quantity) > parseInt(product.stock.toString())
+                    }
+                  />
+                  <HelperText
+                    type='error'
+                    visible={
+                      parseInt(quantity) > parseInt(product.stock.toString())
+                    }
+                  >
+                    La cantidad no puede superar el stock disponible.
+                  </HelperText>
+                </>
+              )}
+            </View>
 
             <Button
-              style={styles.button}
               mode='contained'
-              onPress={handleAddProduct}
+              // onPress={handleAddProduct}
               icon='cart-plus'
             >
               Agregar Producto
@@ -167,18 +224,18 @@ export default function InvoiceForm() {
 
             {/* Lista de productos */}
             <Text style={styles.label}>🛍 Productos seleccionados:</Text>
-            {invoiceItems.map((item, index) => (
-              <Card key={index} style={styles.card}>
+            {invoiceItems.map((x, y) => (
+              <Card key={y} style={styles.card}>
                 <Card.Content>
                   <Text>
-                    📦 {item.product} - {item.quantity} unidad(es)
+                    📦 {x.product} - {x.quantity} unidad(es)
                   </Text>
                 </Card.Content>
                 <Card.Actions>
                   <IconButton
                     icon='delete'
                     iconColor='red'
-                    onPress={() => handleRemoveProduct(index)}
+                    onPress={() => handleRemoveProduct(y)}
                   />
                 </Card.Actions>
               </Card>
